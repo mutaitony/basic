@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin Page</title>
+	<!-- Link to Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+	<!-- Link to Font Awesome CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+	<style>
+		/* Custom styles */
+		.top-bar {
+			background-color: #333;
+			color: #fff;
+			padding: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.profile-image {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			object-fit: cover;
+			margin-right: 10px;
+		}
+		.notification-icon {
+			margin-right: 10px;
+			font-size: 24px;
+			cursor: pointer;
+		}
+		.side-menu {
+			background-color: #f1f1f1;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			overflow-x: hidden;
+			padding-top: 60px;
+		}
+		.side-menu a {
+			display: block;
+			padding: 16px;
+			color: #333;
+			font-size: 18px;
+			text-decoration: none;
+		}
+		.side-menu a:hover {
+			background-color: #ddd;
+		}
+		.active {
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<!-- Top bar with profile image and notification bell -->
+	<div class="top-bar">
+		<div>
+			<img src="https://via.placeholder.com/50x50" alt="Profile Image" class="profile-image">
+			<span>Welcome, John Doe</span>
+		</div>
+		<div>
+			<i class="fas fa-bell notification-icon"></i>
+			<i class="fas fa-cog notification-icon"></i>
+			<i class="fas fa-sign-out-alt notification-icon"></i>
+		</div>
+	</div>
+	
+	<!-- Left side menu -->
+	<div class="side-menu">
+		<a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+		<a href="#"><i class="fas fa-users"></i> Users</a>
+		<a href="#"><i class="fas fa-chart-line"></i> Analytics</a>
+		<a href="#"><i class="fas fa-cog"></i> Settings</a>
+	</div>
+	
+	<!-- Main content -->
+	<div class="container mt-5">
+		<h1>Welcome to the Admin Page</h1>
+		<p>This is the main content area.</p>
+	</div>
+	
+	<!-- Link to Bootstrap JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+	<!-- Link to Font Awesome JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/js/all.min.js"></script>
+</body>
+</html>
