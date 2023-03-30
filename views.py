@@ -55,6 +55,12 @@ def dashboard():
 @login_required
 def urlf(urls):
     return render_template(f'admin/pages/{urls}.html')
+@login_required
+def settings(urls):
+    return render_template('admin/pages/settings.html')
+@login_required
+def logs(urls):
+    return render_template(f'admin/pages/logs.html')
 
 @login_required
 def logout():
