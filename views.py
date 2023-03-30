@@ -50,17 +50,30 @@ def register():
 @login_required
 def dashboard():
     print(current_user.email)
-    return make_response(render_template('admin/pages/index.html'))
+    return make_response(render_template('admin/ndc/index.html'))
 
 @login_required
 def urlf(urls):
     return render_template(f'admin/pages/{urls}.html')
 @login_required
-def settings(urls):
-    return render_template('admin/pages/settings.html')
+def settings():
+    return render_template('admin/ndc/settings.html')
 @login_required
-def logs(urls):
-    return render_template(f'admin/pages/logs.html')
+def logs():
+    return render_template('admin/ndc/logs.html')
+
+@login_required
+def dc_white_space():
+    return render_template('admin/ndc/dc_white_space.html')
+@login_required
+def comments():
+    return render_template('admin/ndc/comments.html')
+@login_required
+def power_rooms():
+    return render_template('admin/ndc/power_rooms.html')
+@login_required
+def generators():
+    return render_template('admin/ndc/generators.html')
 
 @login_required
 def logout():
