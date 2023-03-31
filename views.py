@@ -52,9 +52,7 @@ def dashboard():
     print(current_user.email)
     return make_response(render_template('admin/ndc/index.html'))
 
-@login_required
-def urlf(urls):
-    return render_template(f'admin/pages/{urls}.html')
+
 @login_required
 def settings():
     return render_template('admin/ndc/settings.html')
@@ -74,6 +72,10 @@ def power_rooms():
 @login_required
 def generators():
     return render_template('admin/ndc/generators.html')
+
+@login_required
+def urlf(urls):
+    return render_template(f'admin/pages/{urls}.html')
 
 @login_required
 def logout():

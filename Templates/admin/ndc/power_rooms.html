@@ -13,8 +13,110 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Power Rooms</h1>
-
+                    <h1 class="h5 mb-2 text-gray-800">Power Rooms</h1>
+                    <div class="card mb-2">
+                    <div class="card-body">
+                        <form id="my_form">
+                          <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md">
+                              <div class="form-group">
+                                <label for="room">Select Room</label>
+                                <div id="room" class="mx-2">
+                                  <div class="form-check">
+                                    <input class="form-check-input o_all" value="orange_room" type="radio" name="room" id="orange_room">
+                                    <label class="form-check-label" for="orange_room">
+                                      Orange Room
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input o_some" value="split_room" type="radio" name="room" id="split_room" >
+                                    <label class="form-check-label" for="split_room">
+                                      Split Room
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input o_all" value="grey_room" type="radio" name="room" id="grey_room" >
+                                    <label class="form-check-label" for="grey_room">
+                                      Grey Room
+                                    </label>
+                                    </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input o_some" value="lower_ground" type="radio" name="room" id="lower_ground" >
+                                    <label class="form-check-label" for="lower_ground">
+                                      Lower Ground
+                                    </label>
+                                  </div>
+                                  </div>
+                                  </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9 col-md">
+                              <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="temperature">Temprerature</label>
+                                    <input type="number" disabled value="0" class="form-control all-inputs some_inputs" name="temperature" id="temperature">
+                                    </div>
+                                    </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="humidity">Humidity %</label>
+                                    <input type="number" disabled value="0" class="form-control all-inputs some_inputs" name="humidity" id="humidity">
+                                    </div>
+                                    </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="active_power">Active Power KW</label>
+                                    <input type="number" disabled value="0" class="form-control all-inputs" name="active_power" id="active_power">
+                                    </div>
+                                    </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="reactive_power">Reactive Power kVAR</label>
+                                    <input type="number" disabled value="0" class="form-control all-inputs" name="reactive_power" id="reactive_power">
+                                    </div>
+                                    </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="apparent_power">Apparent Power kVA</label>
+                                    <input type="number" disabled value="0" class="form-control all-inputs" name="apparent_power" id="apparent_power">
+                                    </div>
+                                    </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="power_factor">Power Factor</label>
+                                    <input type="number" disabled value="0" class="form-control all-inputs" name="power_factor" id="power_factor">
+                                    </div>
+                                    </div>
+                                    <div class="col-12">
+                                      <button type="button" disabled class="submit btn btn-secondary w-100 btn-sm">Submit</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                          </div>
+                          
+                        </form>
+                </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="h5">Averages</h4>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md">
+                        <div class="form-group">
+                          <label for="temp_ave">Temperature</label>
+                          <output class="form-control" name="temp_ave" id="temp_ave"></output>
+                          </div>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md">
+                            <div class="form-group">
+                              <label for="hum_ave">Humidity</label>
+                              <output class="form-control" name="hum_ave" id="hum_ave"></output>
+                              </div>
+                              </div>
+                    </div>
+                  </div>
+                </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -27,5 +129,44 @@
 
         </div>
         <!-- End of Content Wrapper -->
+        <script>
+          $(".o_all").change(function() {
+              if(this.checked) {
+                $('.all-inputs').each(function(e){
+                  $(this).attr('disabled', false)
+                  $(this).val('0')
+                })
+                $('.submit').attr('disabled', false)
+
+            }
+          });
+          $(".o_some").change(function() {
+              if(this.checked) {
+                $('.all-inputs').each(function(e){
+                  $(this).attr('disabled', true)
+                  $(this).val('0')
+                })
+                $('.some_inputs').each(function(e){
+                  $(this).attr('disabled', false)
+                })
+                $('.submit').attr('disabled', false)
+            }
+          });
+          const all_data = {}
+          $(function(){
+            $('.submit').click(function(e){
+              var d = $('#my_form').serializeArray()
+              d2 = {}
+              $.each(d, function(index, value){
+                d2[value.name] = value.value
+              })
+  
+              all_data[d[0].value] = d2
+              console.log(all_data)
+            })
+          })
+          
+          
+        </script>
 
     {%endblock%}
