@@ -59,6 +59,9 @@ def settings():
 @login_required
 def logs():
     return render_template('admin/ndc/logs.html')
+@login_required
+def new():
+    return render_template('admin/ndc/new.html')
 
 @login_required
 def dc_white_space():

@@ -17,6 +17,7 @@ app.add_url_rule('/ndc/dc_white_space', 'dc_white_space', dc_white_space, method
 app.add_url_rule('/ndc/comments', 'comments', comments, methods=['POST', 'GET'], strict_slashes=False)
 app.add_url_rule('/ndc/power_rooms', 'power_rooms', power_rooms, methods=['POST', 'GET'], strict_slashes=False)
 app.add_url_rule('/ndc/generators', 'generators', generators, methods=['POST', 'GET'], strict_slashes=False)
+app.add_url_rule('/ndc/new', 'new', new, methods=['POST', 'GET'], strict_slashes=False)
 
 
 
