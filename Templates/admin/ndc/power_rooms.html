@@ -253,25 +253,33 @@
               }
               else if ($.cookie("power_rooms")){
                 var all_data2 = JSON.parse($.cookie("power_rooms"))
-                getAverage(all_data2)
+                var averages = getAverage(all_data2)
+                console.log(averages)
               }
             });
             
           })
           function getAverage(data){
+            var temp = [];
+            var hum = [];
             $.each(data, function(propName, propVal) {
               $.each(propVal, function(propN, propV){
-                temp = [];
-                hum = [];
                 if (propN == 'temperature'){
                   temp.push(propV);
                 }
                 if (propN === 'humidity'){
                   hum.push(propV);
                 }
-                console.log(temp, hum);
               })
             });
+            console.log(temp, hum);
+            var temp_sum = 0
+            var hum_sum = 0
+
+            $.each(temp,function(){temp_sum+=parseFloat(this) || 0;});
+            $.each(hum,function(){hum_sum+=parseFloat(this) || 0;});
+
+            return {temp_av:temp_sum/(temp.length), hum_av:hum_sum/(hum.length)}
           }
           function MakeSerial(location){
             var d = $('#'+location).serializeArray()
