@@ -8,11 +8,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+      body{
+        
+        width: 100% !important;
+        min-height: 100vh !important;
+        background: url("{{url_for('static', filename='images/bg-image.jpg')}}") top center !important;
+        background-size: cover !important;
+        position: relative !important;
+        z-index: 3 !important;
+      }
+    </style>
   </head>
-  <body class="bg-dark d-flex flex-column justify-content-center">
+  <body class="d-flex flex-column justify-content-center bg-img">
 
     <!-- Header section -->
-    <div class="bg-dark text-white mt-5 text-center h-100">
+    <div class="text-white text-center h-100">
+      <div>
+        <img alt="KRA LOGO" class="rounded" src="{{url_for('static', filename='images/kra3.png')}}" height="100">
+    </div>
       <h1 class="my-5 text-white">{{ config.get('PROJECT_NAME') }}</h1>
       <a href="/dashboard" class="btn btn-danger rounded-pill mt-5" style="width: 200px !important;">Get Started</a>
     </div>

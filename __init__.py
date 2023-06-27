@@ -46,8 +46,9 @@ def error_handler(e):
         "description": e.description,
         'source': agent
     })
-    response.content_type = "application/json"
-    return make_response(response, e.code)
+    # response.content_type = "application/json"
+    # return make_response(response, e.code)
+    return make_response(render_template('admin/pages/404.html', code = e.code, name = e.name,description = e.description,))
 
 
 

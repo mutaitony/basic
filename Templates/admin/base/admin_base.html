@@ -28,7 +28,11 @@
     {{ toastr.include_toastr_css() }}
     {{ toastr.message() }}
     {{ toastr.include_toastr_js() }}
-
+    <style>
+        #preview span{
+          font-size: 13px !important;
+        }
+      </style>
 </head>
 
 <body id="page-top">
@@ -175,6 +179,16 @@ aria-hidden="true">
         }
     }
 </script>
+<script>
+    function displayDateTime() {
+      var dateTime = new Date();
+
+      var date = dateTime.getDate()+"-"+(dateTime.getMonth()+1)+"-"+dateTime.getFullYear();
+      var time = dateTime.toLocaleTimeString();
+      document.getElementById("dateTime").innerHTML = date + " - " + time;
+    }
+    setInterval(displayDateTime, 1000);
+  </script>
 </body>
 
 </html>

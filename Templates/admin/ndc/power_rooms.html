@@ -16,7 +16,8 @@
                       <a href="{{url_for('dashboard')}}" class="btn btn-sm btn-primary">Back</a>
                     </div>
                     <!-- Page Heading -->
-                    
+                    <div class="row">
+                    <div class="col-xl-9 col-lg-9 col-md">
                     <div class="card mb-2">
                     <div class="card-body">
                         
@@ -192,13 +193,13 @@
                                   <div class="card-body">
                                     <h4 class="h5">Averages</h4>
                                     <div class="row">
-                                      <div class="col-xl-6 col-lg-6 col-md">
+                                      <div class="col-xl-12 col-lg-12 col-md">
                                         <div class="form-group">
                                           <label for="temp_ave">Temperature</label>
                                           <output class="form-control" name="temp_ave" id="temp_ave"></output>
                                           </div>
                                           </div>
-                                          <div class="col-xl-6 col-lg-6 col-md">
+                                          <div class="col-xl-12 col-lg-12 col-md">
                                             <div class="form-group">
                                               <label for="hum_ave">Humidity</label>
                                               <output class="form-control" name="hum_ave" id="hum_ave"></output>
@@ -221,7 +222,16 @@
                             </div>
                           </div>
                 </div>
-                
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md">
+                  <div class="fw-bolder" id="dateTime"></div>
+                  <hr class="bg-black py-1 my-1">
+                  <div class="fw-bold d-flex justify-content-between">
+                    <span>Preview</span>
+                    <button class="btn btn-danger btn-sm py-0 clear-cookie">Clear</button>
+                  </div>
+                  <div id="preview"></div>
+                </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -240,15 +250,19 @@
           $(function(){
             $('.orange_room').click(function(e){
               MakeSerial('orange_room')
+              Preview()
             })
             $('.split_room').click(function(e){
               MakeSerial('split_room')
+              Preview()
             })
             $('.lower_room').click(function(e){
               MakeSerial('lower_room')
+              Preview()
             })
             $('.grey_room').click(function(e){
               MakeSerial('grey_room')
+              Preview()
             })
             $('#get_average').click(function(){
               if (all_data.length > 0){
@@ -275,8 +289,42 @@
               }
               
             });
-            
+            if ($.cookie("power_rooms")){
+              Preview()
+            }
+            else{
+              $('#preview').html("<span class='no-data'>No data collected or available for today</span>")
+            }
+            $('.clear-cookie').click(function(e){
+              if ($.cookie("power_rooms")){
+                $.removeCookie('power_rooms', { path: '/' });
+                location.reload(true);
+              }
+            })
           })
+          function Preview(){
+            $('#no-data').addClass('visually-hidden');
+            $('#preview').html('');
+            todayData = JSON.parse($.cookie("power_rooms"))
+            $.each(todayData, function(index, value){
+              var t = '';
+              $.each(value, function(index2, value2){
+                t += `
+                <div>
+                  <div class="d-flex justify-content-between">
+                    <span class="fw-light text-capitalize">`+index2.replace(/_/g, ' ')+`</span>
+                    <span class="fw-light">`+value2+`</span>
+                  </div>
+                </div>`
+              });
+              var text = `
+              <div>
+                <div class="text-uppercase class="fw-normal">`+index.replace(/_/g, ' ')+`</div>
+                `+t+`
+              </div>`
+              $('#preview').append(text)
+            })
+          }
           function sendDataBack(todayData){
             $.ajax({
               url: "{{url_for('power_rooms_data')}}",
@@ -328,13 +376,18 @@
           function MakeCookie(all_data){
             $.removeCookie('power_rooms', { path: '/' });
             var expDate = new Date();
-
-            expDate.setTime(expDate.getTime() + (24 * 60 * 60 * 1000)); // add 24 hours
+            var tillmidnight = UntilMidnight()
+            expDate.setTime(expDate.getTime() + (tillmidnight));
             $.cookie("power_rooms", JSON.stringify(all_data), { path: '/', secure: false, expires: expDate });
           }
-          
-          
-          
+          function UntilMidnight() {
+            var midnight = new Date();
+            midnight.setHours( 24 );
+            midnight.setMinutes( 0 );
+            midnight.setSeconds( 0 );
+            midnight.setMilliseconds( 0 );
+            return ( midnight.getTime() - new Date().getTime() );
+        }
         </script>
 
     {%endblock%}

@@ -81,9 +81,28 @@ def urlf(urls):
     return render_template(f'admin/pages/{urls}.html')
 
 @login_required
+def containment_data():
+    data = request.json
+    print()
+    return make_response(jsonify({'success': False, 'message': 'Error saving your data'}))
+@login_required
+def generators_data():
+    data = request.json
+    try:
+        new = Generators(
+            data = data,
+            user = current_user.id,
+            
+        )
+        db.session.add(new)
+        db.session.commit()
+        return make_response(jsonify({'success': True, 'message': 'Data saved successfully', 'data': data}))
+    except Exception as e:
+        return make_response(jsonify({'success': False, 'message': 'Error saving your data'}))
+    
+@login_required
 def power_rooms_data():
     data = request.json
-    print(data)
     try:
         new = PowerRooms(
             data = data,
@@ -94,7 +113,7 @@ def power_rooms_data():
         db.session.commit()
         return make_response(jsonify({'success': True, 'message': 'Data saved successfully', 'data': data}))
     except Exception as e:
-        return make_response(jsonify({'success': False, 'message': 'Error sacing your data'}))
+        return make_response(jsonify({'success': False, 'message': 'Error saving your data'}))
 
 @login_required
 def logout():

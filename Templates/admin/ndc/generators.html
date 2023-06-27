@@ -1,5 +1,6 @@
 {% extends 'admin/base/admin_base.html'%}
 {% block admin%}
+
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
@@ -18,7 +19,7 @@
                     <!-- Page Heading -->
                     
                     <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md">
+                        <div class="col-xl-9 col-lg-9 col-md">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                   <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Generator 1</button>
@@ -33,7 +34,7 @@
                                   <button class="nav-link" id="disabled-tab" data-toggle="tab" data-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">Generator 4</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="total-hrs-tab" data-toggle="tab" data-target="#total-hrs-tab-pane" type="button" role="tab" aria-controls="total-hrs-tab-pane" aria-selected="false">Remaining Hours</button>
+                                  <button class="nav-link" id="total-hrs-tab" data-toggle="tab" data-target="#total-hrs-tab-pane" type="button" role="tab" aria-controls="total-hrs-tab-pane" aria-selected="false">Remaining Hrs</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                   <button class="nav-link" id="tanks-tab" data-toggle="tab" data-target="#tanks-tab-pane" type="button" role="tab" aria-controls="tanks-tab-pane" aria-selected="false">Tanks</button>
@@ -42,11 +43,8 @@
                               <div class="tab-content my-3" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                             <div class="card mb-2">
-                                <!-- <div class="card-header bg-primary text-white py-2">
-                                    <h5 class="h6 fw-bold">Generator One</h5>
-                                </div> -->
                                 <div class="card-body">
-                              <form id="gen-1">
+                              <form id="generator_1">
                               <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
@@ -79,7 +77,7 @@
                                   </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="button" form="gen-1" class="submit float-end btn btn-secondary btn-sm gen-1">Save</button>
+                                    <button type="button" form="generator_1" class="submit float-end btn btn-secondary btn-sm generator_1">Save</button>
                                   </div>
                               </div>
                               </form>
@@ -92,7 +90,7 @@
                                     <h5 class="h6 fw-bold">Generator Two</h5>
                                 </div> -->
                                 <div class="card-body">
-                              <form id="gen-2">
+                              <form id="generator_2">
                               <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
@@ -125,7 +123,7 @@
                                   </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="button" form="gen-2" class="submit float-end btn btn-secondary btn-sm gen-2">Save</button>
+                                    <button type="button" form="generator_2" class="submit float-end btn btn-secondary btn-sm generator_2">Save</button>
                                   </div>
                               </div>
                               </form>
@@ -138,7 +136,7 @@
                                     <h5 class="h6 fw-bold">Generator Three</h5>
                                 </div> -->
                                 <div class="card-body">
-                              <form id="gen-3">
+                              <form id="generator_3">
                               <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
@@ -171,7 +169,7 @@
                                   </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="button" form="gen-3" class="submit float-end btn btn-secondary btn-sm gen-3">Save</button>
+                                    <button type="button" form="generator_3" class="submit float-end btn btn-secondary btn-sm generator_3">Save</button>
                                   </div>
                               </div>
                               </form>
@@ -184,7 +182,7 @@
                                     <h5 class="h6 fw-bold">Generator Four</h5>
                                 </div> -->
                                 <div class="card-body">
-                              <form id="gen-4">
+                              <form id="generator_4">
                               <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
@@ -217,18 +215,39 @@
                                   </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="button" form="gen-4" class="submit float-end btn btn-secondary btn-sm gen-4">Save</button>
+                                    <button type="button" form="generator_4" class="submit float-end btn btn-secondary btn-sm generator_4">Save</button>
                                   </div>
                               </div>
                               </form>
                               </div>
                             </div>
                             </div>
+                            <div class="tab-pane fade" id="total-hrs-tab-pane" role="tabpanel" aria-labelledby="total-hrs-tab" tabindex="0">
+                              <div class="card mb-2">
+                                  <div class="card-body">
+                                    <form>
+                              <div class="col-xl-12 col-lg-12 col-md">
+                                  <div class="form-group">
+                                    <label for="hrs_remaining">Total Hours Remaining</label>
+                                    <output class="form-control" name="hrs_remaining" id="hrs_remaining"></output>
+                                  </div>
+                              </div>
+                              <div class="col-12">
+                                  <button class="btn btn-secondary btn-sm float-end" type="button" id="get_hrs_remaining">
+                                    Get Total and Save
+                                  </button>
+                                </div>
+                                </form>
+                                </div>
+                          <div class="card-footer">
+                              <button class="btn btn-success w-100" type="button" id="save_all_data">
+                                Save All Generators Data
+                              </button>
+                            </div>
+                            </div>
+                            </div>
                             <div class="tab-pane fade" id="tanks-tab-pane" role="tabpanel" aria-labelledby="tanks-tab" tabindex="0">
                                 <div class="card mb-2">
-                                    <!-- <div class="card-header bg-danger text-white py-2">
-                                        <h5 class="h6 fw-bold">Generator Four</h5>
-                                    </div> -->
                                     <div class="card-body">
                                   <form id="tanks">
                                 <div class="col-xl-12 col-lg-12 col-md">
@@ -258,29 +277,17 @@
                                   </div>
                                   </div>
                             </div>
-                            <div class="tab-pane fade" id="total-hrs-tab-pane" role="tabpanel" aria-labelledby="total-hrs-tab" tabindex="0">
-                                <div class="card mb-2">
-                                    <div class="card-body">
-                                <div class="col-xl-12 col-lg-12 col-md">
-                                    <div class="form-group">
-                                      <label for="hrs_remaining">Total Hours Remaining</label>
-                                      <output class="form-control" name="hrs_remaining" id="hrs_remaining"></output>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-secondary btn-sm float-end" type="button" id="get_hrs_remaining">
-                                      Save
-                                    </button>
-                                  </div>
-                                  </div>
-                                  </div>
-                            <div class="card-footer">
-                                <button class="btn btn-success w-100" type="button" id="save_all_data">
-                                  Save All Generators Data
-                                </button>
-                              </div>
-                              </div>
+                            
                             </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md">
+                          <div class="fw-bolder" id="dateTime"></div>
+                          <hr class="bg-black py-1 my-1">
+                          <div class="fw-bold d-flex justify-content-between">
+                            <span>Preview</span>
+                            <button class="btn btn-danger btn-sm py-0 clear-cookie">Clear</button>
+                          </div>
+                          <div id="preview"></div>
                         </div>
                     </div>
                 </div>
@@ -295,5 +302,120 @@
 
         </div>
         <!-- End of Content Wrapper -->
-
+        <script>
+          const all_data = {}
+          $(function(){
+            $('.generator_1').click(function(e){
+              data = MakeSerial('generator_1')
+              Preview()
+            })
+            $('.generator_2').click(function(e){
+              data = MakeSerial('generator_2')
+              Preview()
+            })
+            $('.generator_3').click(function(e){
+              data = MakeSerial('generator_3')
+              Preview()
+            })
+            $('.generator_4').click(function(e){
+              data = MakeSerial('generator_4')
+              Preview()
+            })
+            $('.tanks').click(function(e){
+              data = MakeSerial('tanks')
+              Preview()
+            })
+            $('.clear-cookie').click(function(e){
+              if ($.cookie("generators")){
+                $.removeCookie('generators', { path: '/' });
+                location.reload(true);
+              }
+            })
+            $('#save_all_data').click(function(){
+              var todayData = {}
+              if (all_data.length > 0){
+                todayData = all_data;
+                sendDataBack(todayData)
+              }
+              else if ($.cookie("generators")){
+                todayData = JSON.parse($.cookie("generators"))
+                sendDataBack(todayData)
+              }
+              else{
+                ToastMessage('No data collected or available for today', 'error')
+              }
+              
+            });
+            //================================================
+            if ($.cookie("generators")){
+              Preview()
+            }
+            else{
+              $('#preview').html("<span class='no-data'>No data collected or available for today</span>")
+            }
+          })
+          function sendDataBack(todayData){
+            $.ajax({
+              url: "{{url_for('generators_data')}}",
+              type: 'POST',
+              contentType: 'application/json; charset=utf-8',
+              data: JSON.stringify(todayData),
+              traditional: true,
+              success: function(data){
+                  console.log(data);
+                  ToastMessage('Today\'s data is saved', 'success')
+              }
+            })
+          }
+          function Preview(){
+            $('#no-data').addClass('visually-hidden');
+            $('#preview').html('');
+            todayData = JSON.parse($.cookie("generators"))
+            $.each(todayData, function(index, value){
+              var t = '';
+              $.each(value, function(index2, value2){
+                t += `
+                <div>
+                  <div class="d-flex justify-content-between">
+                    <span class="fw-light text-capitalize">`+index2.replace(/_/g, ' ')+`</span>
+                    <span class="fw-light">`+value2+`</span>
+                  </div>
+                </div>`
+              });
+              var text = `
+              <div>
+                <div class="text-uppercase class="fw-normal">`+index.replace(/_/g, ' ')+`</div>
+                `+t+`
+              </div>`
+              $('#preview').append(text)
+            })
+          }
+          function MakeSerial(location){
+            var d = $('#'+location).serializeArray()
+              room = {}
+              $.each(d, function(index, value){
+                room[value.name] = value.value
+              })
+  
+              all_data[location] = room
+              MakeCookie(all_data)
+              ToastMessage('Saved Successfully', 'success')
+              return all_data;
+          }
+          function MakeCookie(all_data){
+            $.removeCookie('generators', { path: '/' });
+            var expDate = new Date();
+            var tillmidnight = UntilMidnight()
+            expDate.setTime(expDate.getTime() + (tillmidnight));
+            $.cookie("generators", JSON.stringify(all_data), { path: '/', secure: false, expires: expDate });
+          }
+          function UntilMidnight() {
+              var midnight = new Date();
+              midnight.setHours( 24 );
+              midnight.setMinutes( 0 );
+              midnight.setSeconds( 0 );
+              midnight.setMilliseconds( 0 );
+              return ( midnight.getTime() - new Date().getTime() );
+          }
+        </script>
     {%endblock%}

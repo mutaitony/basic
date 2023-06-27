@@ -15,9 +15,121 @@
                         <h1 class="h5 text-gray-800">DC White Space</h1>
                         <a href="{{url_for('dashboard')}}" class="btn btn-sm btn-primary">Back</a>
                       </div>
+                      <div class="row">
+                        <div class="col-xl-9 col-lg-9 col-md">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Containment A</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Containment A</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Average</button>
+                                </li>
+                              </ul>
+                              <div class="tab-content my-3" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                <h4 class="h5">Containment A</h4>
+                              <form id="containment_a">
+                              <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                  <div class="form-group">
+                                    <label for="containment_a_temparature">Temperature</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="temperature" id="containment_a_temparature">
+                                  </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                  <div class="form-group">
+                                    <label for="containment_a_humidity">Humidity</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="humidity" id="containment_a_humidity">
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" form="containment_a" class="submit float-end btn btn-secondary btn-sm containment_a">Save</button>
+                                  </div>
+                              </div>
+                              </form>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                  <h4 class="h5">Containment B</h4>
+                                  <form id="containment_b">
+                                  <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md">
+                                        <div class="form-group">
+                                          <label for="containment_b_temparature">Temperature</label>
+                                          <input type="number" value="0" class="form-control all-inputs some_inputs" name="temperature" id="containment_b_temparature">
+                                        </div>
+                                      </div>
+                                      <div class="col-xl-12 col-lg-12 col-md">
+                                        <div class="form-group">
+                                          <label for="containment_b_humidity">Humidity</label>
+                                          <input type="number" value="0" class="form-control all-inputs some_inputs" name="humidity" id="containment_b_humidity">
+                                        </div>
+                                      </div>
+                                    <div class="col-12">
+                                        <button type="button" form="containment_b" class="submit float-end btn btn-secondary btn-sm containment_b">Save</button>
+                                      </div>
+                                  </div>
+                                  </form>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                                <div class="card">
+                                    <div class="card-body">
+                                      <h4 class="h5">Averages</h4>
+                                      <form id="averages">
+                                      <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md">
+                                          <div class="form-group">
+                                            <label for="temp_ave">Temperature</label>
+                                            <output class="form-control" name="temperature_average" id="temp_ave"></output>
+                                            </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md">
+                                              <div class="form-group">
+                                                <label for="hum_ave">Humidity</label>
+                                                <output class="form-control" name="humidity_average" id="hum_ave"></output>
+                                                </div>
+                                                </div>
+                                      </div>
+                                      </form>
+                                      <div class="col-12">
+                                        <button class="btn btn-secondary btn-sm float-end averages" type="button" form="averages" id="get_average">
+                                          Get Average
+                                        </button>
+                                      </div>
+                                    </div>
+                                    <div class="card-footer">
+                                      <button class="btn btn-success w-100" type="button" id="save_all_data">
+                                        Save All Data
+                                      </button>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md">
+                            <div class="fw-bolder" id="dateTime"></div>
+                          <hr class="bg-black py-1 my-1">
+                          <div class="fw-bold d-flex justify-content-between">
+                            <span>Preview</span>
+                            <button class="btn btn-danger btn-sm py-0 clear-cookie">Clear</button>
+                          </div>
+                          <div id="preview"></div>
+                        </div>
+                      </div>
+                      </div>
                     <!-- Page Heading -->
                     
-
+                      </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -30,5 +142,147 @@
 
         </div>
         <!-- End of Content Wrapper -->
+        <script>
+            const all_data = {}
+            $(function(){
+              $('.containment_a').click(function(e){
+                data = MakeSerial('containment_a')
+                Preview()
+              })
+              $('.containment_b').click(function(e){
+                data = MakeSerial('containment_b')
+                Preview()
+              })
+              $('.clear-cookie').click(function(e){
+                if ($.cookie("containment")){
+                  $.removeCookie('containment', { path: '/' });
+                  location.reload(true);
+                }
+              })
+              $('#get_average').click(function(){
+                if (all_data.length > 0){
+                  var averages = getAverage(all_data)
+                }
+                else if ($.cookie("containment")){
+                  var all_data2 = JSON.parse($.cookie("containment"))
+                  var averages = getAverage(all_data2)
+                }
+                else{
+                    ToastMessage('No data collected or available for today', 'error')
+                }
+              });
+              $('#save_all_data').click(function(){
+                var todayData = {}
+                if (all_data.length > 0){
+                  todayData = all_data;
+                  sendDataBack(todayData)
+                }
+                else if ($.cookie("containment")){
+                  todayData = JSON.parse($.cookie("containment"))
+                  sendDataBack(todayData)
+                }
+                else{
+                  ToastMessage('No data collected or available for today', 'error')
+                }
+                
+              });
+              if ($.cookie("containment")){
+                Preview()
+              }
+              else{
+                $('#preview').html("<span class='no-data'>No data collected or available for today</span>")
+              }
+            })
+            function getAverage(data){
+                var temp = [];
+                var hum = [];
+                $.each(data, function(propName, propVal) {
+                  $.each(propVal, function(propN, propV){
+                    if (propN == 'temperature'){
+                      temp.push(propV);
+                    }
+                    if (propN === 'humidity'){
+                      hum.push(propV);
+                    }
+                  })
+                });
+                var temp_sum = 0
+                var hum_sum = 0
+    
+                $.each(temp,function(){temp_sum+=parseFloat(this) || 0;});
+                $.each(hum,function(){hum_sum+=parseFloat(this) || 0;});
+    
+                $('#temp_ave').val(temp_sum/(temp.length));
+                $('#hum_ave').val(hum_sum/(hum.length));
+
+                var d = {temperature_average:temp_sum/(temp.length), humidity_average:hum_sum/(hum.length)}
+                all_data['averages'] = d
+                MakeCookie(all_data)
+                Preview()
+                return {temp_av:temp_sum/(temp.length), hum_av:hum_sum/(hum.length)}
+              }
+            function sendDataBack(todayData){
+                $.ajax({
+                  url: "{{url_for('containment_data')}}",
+                  type: 'POST',
+                  contentType: 'application/json; charset=utf-8',
+                  data: JSON.stringify(todayData),
+                  traditional: true,
+                  success: function(data){
+                      ToastMessage('Today\'s data is saved', 'success')
+                  }
+                })
+              }
+              function Preview(){
+                $('#no-data').addClass('visually-hidden');
+                $('#preview').html('');
+                todayData = JSON.parse($.cookie("containment"))
+                $.each(todayData, function(index, value){
+                  var t = '';
+                  $.each(value, function(index2, value2){
+                    t += `
+                    <div>
+                      <div class="d-flex justify-content-between">
+                        <span class="fw-light text-capitalize">`+index2.replace(/_/g, ' ')+`</span>
+                        <span class="fw-light">`+value2+`</span>
+                      </div>
+                    </div>`
+                  });
+                  var text = `
+                  <div>
+                    <div class="text-uppercase class="fw-normal">`+index.replace(/_/g, ' ')+`</div>
+                    `+t+`
+                  </div>`
+                  $('#preview').append(text)
+                })
+              }
+              function MakeSerial(location){
+                var d = $('#'+location).serializeArray()
+                  room = {}
+                  $.each(d, function(index, value){
+                    room[value.name] = value.value
+                  })
+      
+                  all_data[location] = room
+                  MakeCookie(all_data)
+                  ToastMessage('Saved Successfully', 'success')
+                  return all_data;
+              }
+              function MakeCookie(all_data){
+                $.removeCookie('containment', { path: '/' });
+                var expDate = new Date();
+                var tillmidnight = UntilMidnight()
+                expDate.setTime(expDate.getTime() + (tillmidnight));
+                $.cookie("containment", JSON.stringify(all_data), { path: '/', secure: false, expires: expDate });
+              }
+              function UntilMidnight() {
+                  var midnight = new Date();
+                  midnight.setHours( 24 );
+                  midnight.setMinutes( 0 );
+                  midnight.setSeconds( 0 );
+                  midnight.setMilliseconds( 0 );
+                  return ( midnight.getTime() - new Date().getTime() );
+              }
+        </script>
 
     {%endblock%}
