@@ -11,10 +11,278 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    <div class="mb-3 d-flex justify-content-between">
+                        <h1 class="h5 text-gray-800">Generators</h1>
+                        <a href="{{url_for('dashboard')}}" class="btn btn-sm btn-primary">Back</a>
+                      </div>
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Generators</h1>
-
+                    
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Generator 1</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Generator 2</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Generator 3</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link" id="disabled-tab" data-toggle="tab" data-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">Generator 4</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link" id="total-hrs-tab" data-toggle="tab" data-target="#total-hrs-tab-pane" type="button" role="tab" aria-controls="total-hrs-tab-pane" aria-selected="false">Remaining Hours</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                  <button class="nav-link" id="tanks-tab" data-toggle="tab" data-target="#tanks-tab-pane" type="button" role="tab" aria-controls="tanks-tab-pane" aria-selected="false">Tanks</button>
+                                </li>
+                              </ul>
+                              <div class="tab-content my-3" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                            <div class="card mb-2">
+                                <!-- <div class="card-header bg-primary text-white py-2">
+                                    <h5 class="h6 fw-bold">Generator One</h5>
+                                </div> -->
+                                <div class="card-body">
+                              <form id="gen-1">
+                              <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g1_fuel_level">Fuel Level</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_level" id="g1_fuel_level">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g1_run_time">Run Time Hours</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="run_time" id="g1_run_time">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g1_prev_starts">Previous Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="prev_starts" id="g1_prev_starts">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g1_current_starts">Current Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="current_starts" id="g1_current_starts">
+                                  </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                  <div class="form-group">
+                                    <label for="g1_total_starts">Total Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="total_starts" id="g1_total_starts">
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" form="gen-1" class="submit float-end btn btn-secondary btn-sm gen-1">Save</button>
+                                  </div>
+                              </div>
+                              </form>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                            <div class="card mb-2">
+                                <!-- <div class="card-header  bg-secondary text-white py-2">
+                                    <h5 class="h6 fw-bold">Generator Two</h5>
+                                </div> -->
+                                <div class="card-body">
+                              <form id="gen-2">
+                              <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g2_fuel_level">Fuel Level</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_level" id="g2_fuel_level">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g2_run_time">Run Time Hours</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="run_time" id="g2_run_time">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g2_prev_starts">Previous Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="prev_starts" id="g2_prev_starts">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g2_current_starts">Current Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="current_starts" id="g2_current_starts">
+                                  </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                  <div class="form-group">
+                                    <label for="g2_total_starts">Total Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="total_starts" id="g2_total_starts">
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" form="gen-2" class="submit float-end btn btn-secondary btn-sm gen-2">Save</button>
+                                  </div>
+                              </div>
+                              </form>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                            <div class="card mb-2">
+                                <!-- <div class="card-header bg-info text-white py-2">
+                                    <h5 class="h6 fw-bold">Generator Three</h5>
+                                </div> -->
+                                <div class="card-body">
+                              <form id="gen-3">
+                              <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g3_fuel_level">Fuel Level</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_level" id="g3_fuel_level">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g3_run_time">Run Time Hours</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="run_time" id="g3_run_time">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g3_prev_starts">Previous Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="prev_starts" id="g3_prev_starts">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g3_current_starts">Current Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="current_starts" id="g3_current_starts">
+                                  </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                  <div class="form-group">
+                                    <label for="g3_total_starts">Total Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="total_starts" id="g3_total_starts">
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" form="gen-3" class="submit float-end btn btn-secondary btn-sm gen-3">Save</button>
+                                  </div>
+                              </div>
+                              </form>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+                            <div class="card mb-2">
+                                <!-- <div class="card-header bg-danger text-white py-2">
+                                    <h5 class="h6 fw-bold">Generator Four</h5>
+                                </div> -->
+                                <div class="card-body">
+                              <form id="gen-4">
+                              <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g4_fuel_level">Fuel Level</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_level" id="g4_fuel_level">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g4_run_time">Run Time Hours</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="run_time" id="g4_run_time">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g4_prev_starts">Previous Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="prev_starts" id="g4_prev_starts">
+                                  </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md">
+                                  <div class="form-group">
+                                    <label for="g4_current_starts">Current Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="current_starts" id="g4_current_starts">
+                                  </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                  <div class="form-group">
+                                    <label for="g4_total_starts">Total Starts</label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="total_starts" id="g4_total_starts">
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" form="gen-4" class="submit float-end btn btn-secondary btn-sm gen-4">Save</button>
+                                  </div>
+                              </div>
+                              </form>
+                              </div>
+                            </div>
+                            </div>
+                            <div class="tab-pane fade" id="tanks-tab-pane" role="tabpanel" aria-labelledby="tanks-tab" tabindex="0">
+                                <div class="card mb-2">
+                                    <!-- <div class="card-header bg-danger text-white py-2">
+                                        <h5 class="h6 fw-bold">Generator Four</h5>
+                                    </div> -->
+                                    <div class="card-body">
+                                  <form id="tanks">
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                    <div class="form-group">
+                                      <label for="tanks1_fuel_level">Tank 1 Fuel Level</label>
+                                      <input type="number" value="0" class="form-control all-inputs some_inputs" name="tanks1_fuel_level" id="tanks1_fuel_level">
+                                    </div>
+                                  </div>
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                    <div class="form-group">
+                                      <label for="tanks2_fuel_level">Tank 2 Fuel Level</label>
+                                      <input type="number" value="0" class="form-control all-inputs some_inputs" name="tanks2_fuel_level" id="tanks2_fuel_level">
+                                    </div>
+                                  </div>
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                    <div class="form-group">
+                                      <label for="fuel_remaining">% Fuel Remaining</label>
+                                      <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_remaining" id="fuel_remaining">
+                                    </div>
+                                  </div>
+                                  <div class="col-12">
+                                    <button class="btn btn-secondary btn-sm float-end tanks" form="tanks" type="button" id="get_hrs_remaining">
+                                      Save
+                                    </button>
+                                  </div>
+                                  </form>
+                                  </div>
+                                  </div>
+                            </div>
+                            <div class="tab-pane fade" id="total-hrs-tab-pane" role="tabpanel" aria-labelledby="total-hrs-tab" tabindex="0">
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                <div class="col-xl-12 col-lg-12 col-md">
+                                    <div class="form-group">
+                                      <label for="hrs_remaining">Total Hours Remaining</label>
+                                      <output class="form-control" name="hrs_remaining" id="hrs_remaining"></output>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-secondary btn-sm float-end" type="button" id="get_hrs_remaining">
+                                      Save
+                                    </button>
+                                  </div>
+                                  </div>
+                                  </div>
+                            <div class="card-footer">
+                                <button class="btn btn-success w-100" type="button" id="save_all_data">
+                                  Save All Generators Data
+                                </button>
+                              </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 

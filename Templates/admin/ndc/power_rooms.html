@@ -11,9 +11,12 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    <div class="mb-3 d-flex justify-content-between">
+                      <h1 class="h5 text-gray-800">Power Rooms</h1>
+                      <a href="{{url_for('dashboard')}}" class="btn btn-sm btn-primary">Back</a>
+                    </div>
                     <!-- Page Heading -->
-                    <h1 class="h5 mb-2 text-gray-800">Power Rooms</h1>
+                    
                     <div class="card mb-2">
                     <div class="card-body">
                         
@@ -210,7 +213,7 @@
                                   </div>
                                   <div class="card-footer">
                                     <button class="btn btn-success w-100" type="button" id="save_all_data">
-                                      Save All Date
+                                      Save All Data
                                     </button>
                                   </div>
                                 </div>
@@ -249,16 +252,44 @@
             })
             $('#get_average').click(function(){
               if (all_data.length > 0){
-                getAverage(all_data)
+                var averages = getAverage(all_data)
               }
               else if ($.cookie("power_rooms")){
                 var all_data2 = JSON.parse($.cookie("power_rooms"))
                 var averages = getAverage(all_data2)
-                console.log(averages)
               }
+            });
+
+            $('#save_all_data').click(function(){
+              var todayData = {}
+              if (all_data.length > 0){
+                todayData = all_data;
+                sendDataBack(todayData)
+              }
+              else if ($.cookie("power_rooms")){
+                todayData = JSON.parse($.cookie("power_rooms"))
+                sendDataBack(todayData)
+              }
+              else{
+                ToastMessage('No data collected or available for today', 'error')
+              }
+              
             });
             
           })
+          function sendDataBack(todayData){
+            $.ajax({
+              url: "{{url_for('power_rooms_data')}}",
+              type: 'POST',
+              contentType: 'application/json; charset=utf-8',
+              data: JSON.stringify(todayData),
+              traditional: true,
+              success: function(data){
+                  console.log(data);
+                  ToastMessage('Today\'s data is saved', 'success')
+              }
+            })
+          }
           function getAverage(data){
             var temp = [];
             var hum = [];
@@ -272,12 +303,14 @@
                 }
               })
             });
-            console.log(temp, hum);
             var temp_sum = 0
             var hum_sum = 0
 
             $.each(temp,function(){temp_sum+=parseFloat(this) || 0;});
             $.each(hum,function(){hum_sum+=parseFloat(this) || 0;});
+
+            $('#temp_ave').val(temp_sum/(temp.length));
+            $('#hum_ave').val(hum_sum/(hum.length));
 
             return {temp_av:temp_sum/(temp.length), hum_av:hum_sum/(hum.length)}
           }
@@ -290,13 +323,14 @@
   
               all_data[location] = room
               MakeCookie(all_data)
+              ToastMessage('Saved Successfully', 'success')
           }
           function MakeCookie(all_data){
             $.removeCookie('power_rooms', { path: '/' });
             var expDate = new Date();
 
             expDate.setTime(expDate.getTime() + (24 * 60 * 60 * 1000)); // add 24 hours
-            $.cookie("power_rooms", JSON.stringify(all_data), { path: '/', secure: false });
+            $.cookie("power_rooms", JSON.stringify(all_data), { path: '/', secure: false, expires: expDate });
           }
           
           

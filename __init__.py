@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 from flask_login import UserMixin,login_user,login_required,logout_user,current_user,LoginManager
 import os, pymysql
+from flask_toastr import Toastr
 from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__, template_folder= 'Templates')
@@ -12,6 +13,7 @@ from settings.settings import *
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 db = SQLAlchemy(app)
+toastr = Toastr(app)
 
 app.app_context().push()
 

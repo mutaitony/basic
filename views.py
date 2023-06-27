@@ -81,6 +81,22 @@ def urlf(urls):
     return render_template(f'admin/pages/{urls}.html')
 
 @login_required
+def power_rooms_data():
+    data = request.json
+    print(data)
+    try:
+        new = PowerRooms(
+            data = data,
+            user = current_user.id,
+            
+        )
+        db.session.add(new)
+        db.session.commit()
+        return make_response(jsonify({'success': True, 'message': 'Data saved successfully', 'data': data}))
+    except Exception as e:
+        return make_response(jsonify({'success': False, 'message': 'Error sacing your data'}))
+
+@login_required
 def logout():
     logout_user()
     return redirect(url_for("login"))
