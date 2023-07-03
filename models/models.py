@@ -27,7 +27,7 @@ class PowerRooms(db.Model):
     date = db.Column(db.DateTime, default=datetime.now())
     
     def __repr__(self):
-        return '<User %r>' % self.id
+        return '<Power Rooms %r>' % self.id
     
 class Generators(db.Model):
     __tablename__ = 'generators'
@@ -38,4 +38,15 @@ class Generators(db.Model):
     date = db.Column(db.DateTime, default=datetime.now())
     
     def __repr__(self):
-        return '<User %r>' % self.id
+        return '<Generators %r>' % self.id
+    
+class WhiteSpace(db.Model):
+    __tablename__ = 'white_space'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user = db.Column(db.Integer)
+    data = db.Column(db.PickleType)
+    date = db.Column(db.DateTime, default=datetime.now())
+    
+    def __repr__(self):
+        return '<White Space %r>' % self.id

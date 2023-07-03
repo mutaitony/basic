@@ -22,7 +22,7 @@
                                   <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Containment A</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Containment A</button>
+                                  <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Containment B</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                   <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Average</button>
@@ -108,9 +108,7 @@
                                       </div>
                                     </div>
                                     <div class="card-footer">
-                                      <button class="btn btn-success w-100" type="button" id="save_all_data">
-                                        Save All Data
-                                      </button>
+                                      
                                     </div>
                                   </div>
                             </div>
@@ -119,6 +117,9 @@
                         <div class="col-xl-3 col-lg-3 col-md">
                             <div class="fw-bolder" id="dateTime"></div>
                           <hr class="bg-black py-1 my-1">
+                          <button class="btn btn-success w-100 mb-2" disabled="true" type="button" id="save_all_data">
+                            Save All Collected Data
+                          </button>
                           <div class="fw-bold d-flex justify-content-between">
                             <span>Preview</span>
                             <button class="btn btn-danger btn-sm py-0 clear-cookie">Clear</button>
@@ -143,8 +144,11 @@
         </div>
         <!-- End of Content Wrapper -->
         <script>
-            const all_data = {}
+            var all_data = {}
             $(function(){
+              if ($.cookie("containment")){
+                all_data = JSON.parse($.cookie("containment"))
+              }
               $('.containment_a').click(function(e){
                 data = MakeSerial('containment_a')
                 Preview()
@@ -237,6 +241,10 @@
                 $('#no-data').addClass('visually-hidden');
                 $('#preview').html('');
                 todayData = JSON.parse($.cookie("containment"))
+                if (Object.keys(todayData).length == 3){
+                  console.log(todayData)
+                  $('#save_all_data').prop( "disabled", false )
+                }
                 $.each(todayData, function(index, value){
                   var t = '';
                   $.each(value, function(index2, value2){

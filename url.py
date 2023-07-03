@@ -28,3 +28,4 @@ app.add_url_rule('/ndc/new', 'new', new, methods=['POST', 'GET'], strict_slashes
 
 
 app.add_url_rule('/<urls>', 'urlf', urlf, methods=['POST', 'GET'], strict_slashes=False)
+app.add_url_rule('/ndc/generate_pdf', 'generate_pdf', generate_pdf, methods=['POST', 'GET'], strict_slashes=False)

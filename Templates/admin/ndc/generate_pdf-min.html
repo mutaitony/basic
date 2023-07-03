@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>PDF</title>
+    <style>
+        .body{
+            margin: 0;
+            padding: 0;
+            width: 3508px;
+            height: 100%;
+            color:black !important;
+        }
+        .printable2, .printable3 {
+            top: 0;
+            left: 0;
+            width: 99%;
+            height: 100%;
+            font-size: 10px !important;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            white-space: normal;
+            color:black !important;
+        }
+
+        .printable3 table,
+        .printable3 th,
+        .printable3 td {
+            border: none !important;
+            color:black !important;
+            border-collapse: collapse;
+        }
+        .printable2 table,
+        .printable2 th,
+        .printable2 td {
+            border: 1px solid black;
+            color:black !important;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+        .printable2 td {
+            vertical-align: top;
+        }
+        .top_name{
+            display:flex;
+            justify-content: space-evenly;
+        }
+    </style>
+</head>
+
+<body class="body">
+    <div class="top_name">
+        <img alt="KRA LOGO" src="{{url_for('static', filename='images/kra.png')}}" height="30">
+        <h6>Data Centre Facility Daily Checklist</h6>
+        <h6>Date: {{date}}</h6>
+    </div>
+    <br>
+    <table class="printable2">
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>No </th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments </th>
+        </tr>
+        <tr>
+            <td rowspan="12">1. </td>
+            <td  rowspan="12">Power </td>
+            <td>Check Genset Fuel level base tanks </td>
+            <td colspan="3">
+                <div><span>G1-842L</span></div>
+                <div><span>G2-842L</span></div>
+                <div><span>G3-842L</span></div>
+            </td>
+            <td colspan="2">
+                <div><span>G1- {{data.fuel_level_base_tank_g1}}</span></div>
+                <div><span>G2- {{data.fuel_level_base_tank_g2}}</span></div>
+                <div><span>G3- {{data.fuel_level_base_tank_g3}}</span></div>
+            </td>
+            <td>
+                <div><span>{{data.fuel_level_base_tank_g1_runtime}} Runtime Hours</span></div>
+                <div><span>{{data.fuel_level_base_tank_g2_runtime}} Runtime Hours</span></div>
+                <div><span>{{data.fuel_level_base_tank_g3_runtime}} Runtime Hours</span></div>
+                <div><span>{{data.fuel_level_base_tank_runtime_average}}TOTAL RUNTIME HOURS REMAINING</span></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Check Genset Fuel level external tanks </td>
+            <td colspan="3">
+                <div><span>T1-1450L</span></div>
+                <div><span>T2-1450L</span></div>
+            </td>
+            <td colspan="2">
+                <div><span>T1- {{data.fuel_level_external_tanks_tanks1}}</span></div>
+                <div><span>T2- {{data.fuel_level_external_tanks_tanks2}}</span></div>
+            </td>
+            <td>
+                <div><span>{{data.fuel_level_external_tanks_fuel_remaining}}FUEL REMAINING</span></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Check the Genset engine health. Are there any Alarms/errors on the Gensets? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">{{data.genset_engine_health_comment}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Was there mains power blackout in the last 24 hours? </td>
+            <td colspan="3"></td>
+            <td colspan="2">
+                <div><span>G1 Prev Eng {{data.gen_starts_g1_prev}}</span></div>
+                <div><span>G1 Curr Eng {{data.gen_starts_g1_current}}</span></div>
+                <div><span>G2 Prev Eng {{data.gen_starts_g2_prev}}</span></div>
+                <div><span>G2 Curr Eng {{data.gen_starts_g2_current}}</span></div>
+                <div><span>G3 Prev Eng {{data.gen_starts_g3_prev}}</span></div>
+                <div><span>G3 Curr Eng {{data.gen_starts_g3_current}}</span></div>
+            </td>
+            <td>
+                <div><span>Total Engine starts statistics</span></div>
+                <div><span>G1- {{data.starts_statistics_g1}}</span></div>
+                <div><span>G2- {{data.starts_statistics_g2}}</span></div>
+                <div><span>G3- {{data.starts_statistics_g3}}</span></div>
+            </td>
+        </tr>
+        <tr>
+            <td>Check Genset control panel status </td>
+            <td colspan="3">AUT </td>
+            <td colspan="2">{{data.genset_control_panel_status}}</td>
+            <td>{{data.genset_control_panel_status_comment}}</td>
+        </tr>
+        <tr>
+            <td>Are there any UPS alarms? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.ups_alarms}}
+            </td>
+            <td>{{data.ups_alarm_comment}}</td>
+        </tr>
+        <tr>
+            <td>Gen battery voltage </td>
+            <td colspan="3">24 -28 V </td>
+            <td colspan="2">
+                <div><span>G1={{data.battery_voltage_g1}}</span></div>
+                <div><span>G2={{data.battery_voltage_g2}}</span></div>
+                <div><span>G3={{data.battery_voltage_g3}}</span></div>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td rowspan="5">Power usage </td>
+            <td></td>
+            <td>MIN </td>
+            <td>MAX </td>
+            <td>Grey </td>
+            <td>Orange </td>
+            <td rowspan="5">{{data.power_usage_comment}}</td>
+        </tr>
+        <tr>
+            <td>Act pwr(KW) </td>
+            <td>64 </td>
+            <td>94 </td>
+            <td>{{data.grey_active_pwr}}</td>
+            <td>{{data.orange_active_pwr}}</td>
+        </tr>
+        <tr>
+            <td>Rct Pwr (kVAR) </td>
+            <td>-46 </td>
+            <td>-31 </td>
+            <td>{{data.grey_reactive_pwr}}</td>
+            <td>{{data.orange_reactive_pwr}}</td>
+        </tr>
+        <tr>
+            <td>App Pwr(kVA) </td>
+            <td>77 </td>
+            <td>98 </td>
+            <td>{{data.grey_apparent_pwr}}</td>
+            <td>{{data.orange_apparent_pwr}}</td>
+        </tr>
+        <tr>
+            <td>Pwr Factor(kVA) </td>
+            <td>0.9 </td>
+            <td>0.9 </td>
+            <td>{{data.grey_pwr_factor}}</td>
+            <td>{{data.orange_pwr_factor}}</td>
+        </tr>
+        </table>
+
+        <table class="printable2">
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>2.</th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments</th>
+        </tr>
+        <tr>
+            <td rowspan="8"></td>
+            <td rowspan="8">Cooling </td>
+            <td>Are there any air conditioning unit (ACU) alerts? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.air_conditioning_alerts}} 
+            </td>
+            <td>{{data.air_conditioning_alerts_comment}}</td>
+        </tr>
+        <tr>
+            <td>Are all the ACUs blowing cold air in the DC? </td>
+            <td colspan="3">YES </td>
+            <td colspan="2">
+                {{data.all_acus_blowing_dc}} 
+            </td>
+            <td>{{data.all_acus_blowing_dc_comment}}</td>
+        </tr>
+        <tr>
+            <td>Are all the ACUs blowing cold air in the Power Rooms? </td>
+            <td colspan="3">YES </td>
+            <td colspan="2">
+                {{data.all_acus_blowing_power_rooms}} 
+            </td>
+            <td>{{data.all_acus_blowing_power_rooms_comment}}</td>
+        </tr>
+        <tr>
+            <td>Are the ACUs locked? </td>
+            <td colspan="3">YES </td>
+            <td colspan="2">
+                {{data.acus_locked}}
+            </td>
+            <td>{{data.acus_locked_comment}}</td>
+        </tr>
+        <tr>
+            <td>What is the average temperature on the white space? </td>
+            <td colspan="3">18℃-27℃ </td>
+            <td colspan="2">
+                {{data.ave_temp_whitespace}}
+            </td>
+            <td>{{data.average_temperature_comment}}</td>
+        </tr>
+        <tr>
+            <td>What are the humidity levels in the white space? </td>
+            <td colspan="3">40% - 60% </td>
+            <td colspan="2">
+                {{data.ave_hum_whitespace}}
+            </td>
+            <td>{{data.ave_hum_whitespace_comment}}</td>
+        </tr>
+        <tr>
+            <td>What is the average temperature in the power rooms? </td>
+            <td colspan="3">21℃-27℃ </td>
+            <td colspan="2">
+                {{data.ave_temp_power_rooms}}
+            </td>
+            <td>{{data.ave_temp_power_rooms_comment}}</td>
+        </tr>
+        <tr>
+            <td>What are the humidity levels in the power rooms? </td>
+            <td colspan="3">40% - 60% </td>
+            <td colspan="2">
+                {{data.ave_hum_power_rooms}}
+            </td>
+            <td>{{data.ave_hum_power_rooms_comment}}</td>
+        </tr>
+        </table>
+        <table class="printable2">
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>3.</th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments </th>
+        </tr>
+        <tr>
+            <td rowspan="3"></td>
+            <td rowspan="3">Fire detection and suppression </td>
+            <td>Does the fire suppression system display any alerts? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.suppression_system_display_any_alerts}} 
+            </td>
+            <td>{{data.suppression_system_display_any_alerts_comment}}</td>
+        </tr>
+        <tr>
+            <td>What is the Status of smoke detectors? </td>
+            <td colspan="3">OK </td>
+            <td colspan="2">
+                {{data.status_of_smoke_detectors}} 
+            </td>
+            <td>{{data.status_of_smoke_detectors_comment}}</td>
+        </tr>
+        <tr>
+            <td>What is the Status of water leak panel? </td>
+            <td colspan="3">OK </td>
+            <td colspan="2">
+                {{data.status_of_water_leak_panel}} 
+            </td>
+            <td>{{data.status_of_water_leak_panel_comment}}</td>
+        </tr>
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>4.</th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments </th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Communication services </td>
+            <td>Are there any device alarms? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.any_device_alarms}}
+            </td>
+            <td>{{data.any_device_alarms_comment}}</td>
+        </tr>
+        </table>
+        <table class="printable2">
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>5.</th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments </th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Servers </td>
+            <td>Are there any server alarms? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.any_server_alarms}} 
+            </td>
+            <td>{{data.any_server_alarms_comment}}</td>
+        </tr>
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>6.</th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments </th>
+        </tr>
+        <tr>
+            <td rowspan="6"></td>
+            <td rowspan="6">Network </td>
+            <td>Are there any alarms on the network equipment? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.any_alarms_on_the_network_equipment}} 
+            </td>
+            <td>{{data.any_alarms_on_the_network_equipment_comment}}  </td>
+        </tr>
+        <tr>
+            <td colspan="7">Network Service Status: </td>
+        </tr>
+        <tr>
+            <td>Dark fibre Link A status </td>
+            <td colspan="3">OK </td>
+            <td colspan="2">
+                {{data.dark_fibre_link_a_status}}  
+            </td>
+            <td>{{data.dark_fibre_link_a_status_comment}}  </td>
+        </tr>
+        <tr>
+            <td>Dark fibre Link B status </td>
+            <td colspan="3">OK </td>
+            <td colspan="2">
+                {{data.dark_fibre_link_b_status}} 
+            </td>
+            <td>{{data.dark_fibre_link_b_status_comment}}</td>
+        </tr>
+        <tr>
+            <td>Internet Link status-Saurus </td>
+            <td colspan="3">OK </td>
+            <td colspan="2">
+                {{data.internet_link_status_saurus}}
+            </td>
+            <td>{{data.internet_link_status_saurus_comment}}</td>
+        </tr>
+        <tr>
+            <td>Internet Link status-LTK </td>
+            <td colspan="3">OK </td>
+            <td colspan="2">
+                {{data.internet_link_status_ltk}} 
+            </td>
+            <td>{{data.internet_link_status_ltk_comment}}</td>
+        </tr>
+        </table>
+        <table class="printable2">
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>7.</th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments </th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Storage </td>
+            <td>Are there any alarms </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.are_there_any_alarms}} 
+            </td>
+            <td>{{data.are_there_any_alarms_comment}}</td>
+        </tr>
+        </table>
+        <table class="printable2">
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>8.</th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments </th>
+        </tr>
+        <tr>
+            <td rowspan="3"></td>
+            <td rowspan="3">CCTV and Access Control </td>
+            <td>Are all DC doors well locked? </td>
+            <td colspan="3">YES </td>
+            <td colspan="2">
+                {{data.are_all_dc_doors_well_locked}} 
+            </td>
+            <td>{{data.are_all_dc_doors_well_locked_comment}}</td>
+        </tr>
+        <tr>
+            <td>Are all Data Centre Cameras in good working condition? </td>
+            <td colspan="3">YES </td>
+            <td colspan="2">
+                {{data.are_all_data_centre_cameras_in_good_working_condition}} 
+            </td>
+            <td>{{data.are_all_data_centre_cameras_in_good_working_condition_comment}}</td>
+        </tr>
+        <tr>
+            <td>Are there any Alarms/alerts/issues? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.are_there_any_alarms_issues}} 
+            </td>
+            <td>{{data.are_there_any_alarms_issues_comment}}</td>
+        </tr>
+        </table>
+        <table class="printable2">
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>9.</th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments </th>
+        </tr>
+        <tr>
+            <td rowspan="3"></td>
+            <td rowspan="3">General Data Centre Areas </td>
+            <td>Are there any water leakages in the Data Centre facility? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.water_leakages_in_the_data_centre_facility}} 
+            </td>
+            <td>{{data.water_leakages_in_the_data_centre_facility_comment}}</td>
+        </tr>
+        <tr>
+            <td>Is the facility clean and tidy? </td>
+            <td colspan="3">YES </td>
+            <td colspan="2">
+                {{data.facility_clean_and_tidy}} 
+            </td>
+            <td>{{data.facility_clean_and_tidy_comment}}</td>
+        </tr>
+        <tr>
+            <td>Are there any obstructions or garbage near/ blocking the Data Centre facility? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.obstructions_or_garbage_near_dc}} 
+            </td>
+            <td>{{data.obstructions_or_garbage_near_dc_comment}}</td>
+        </tr>
+        </table>
+        <table class="printable2">
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>10.</th>
+            <th style="width: 15%;">Service </th>
+            <th style="width: 25%;">WalkThrough Activity </th>
+            <th colspan="3">Normal Status(L) </th>
+            <th colspan="2">Current Status(L) </th>
+            <th style="width: 35%;">Comments </th>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Contractors/ Vendors working in the DC facility. </td>
+            <td>Are there any contractors/visitors expected in the Data Centre? </td>
+            <td colspan="3">NO </td>
+            <td colspan="2">
+                {{data.any_contractors_visitors_expected}} 
+            </td>
+            <td>{{data.any_contractors_visitors_expected_comment}}</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <div>
+        <div>
+            <table class="printable3">
+                <tr>
+                    <td>Name of officer:__________________________________________________</td>
+                    <td>Signature:__________________________________________________</td>
+                    <td>Date:__________________________________________________</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Approved by:__________________________________________________</td>
+                    <td>Signature:__________________________________________________</td>
+                    <td>Date:__________________________________________________</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

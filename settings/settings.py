@@ -11,6 +11,7 @@ app.config["TIMEZONE"] = "Africa/Nairobi"
 app.config["PORT"] = 5050
 # app.config["SERVER_NAME"] = "localhost.localdomain:5050"
 # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://admin:AutoLinkAWS2022@autolink.crc1i8e8xwee.af-south-1.rds.amazonaws.com/ndc_daily_checklist"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://rentnasi_ndc_admin:gX35(svBNZYb@localhost/rentnasi_ndc"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:@localhost/ndc_daily_checklist"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_POOL_SIZE"] = 50

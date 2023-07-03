@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PDF</title>
+    <style>
+        html{
+            font-size: 10px !important;
+        }
+        .printable {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+         }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        td {
+            vertical-align: top;
+        }
+ 
+       </style>
+</head>
+
+<body>
+    <table id="myTable" class="printable">
+        <tr style="background-color: rgb(94, 209, 244);">
+            <th>
+                No
+            </th>
+            <th>
+                Service
+            </th>
+            <th>
+                WalkThrough Activity
+            </th>
+            <th colspan="3">
+                Normal Status(L)
+            </th>
+            <th colspan="2">
+                Current Status(L)
+            </th>
+            <th>
+                Comments
+            </th>
+        </tr>
+        <tr>
+            <td rowspan="12">
+                1.
+            </td>
+            <td rowspan="12">
+                Power
+            </td>
+            <td>
+                Check Genset Fuel level base tanks
+            </td>
+            <td colspan="3">
+                <p>G1-842L</p>
+                <p>G2-842L</p>
+                <p>G3-842L</p>
+            </td>
+            <td colspan="2">
+                <p>G1- </p>
+                <p>G2- </p>
+                <p>G3- </p>
+            </td>
+            <td>
+                <p> Runtime Hours</p>
+                <p> Runtime Hours</p>
+                <p> Runtime Hours</p>
+                <p> TOTAL RUNTIME HOURS REMAINING</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Check Genset Fuel level external tanks
+            </td>
+            <td colspan="3">
+                <p>T1-1450L</p>
+                <p>T2-1450L</p>
+            </td>
+            <td colspan="2">
+                <p>T1- </p>
+                <p>T2- </p>
+            </td>
+            <td>
+                <p> FUEL REMAINING</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Check the Genset engine health. Are there any Alarms /errors on the Gensets?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                NO
+            </td>
+            <td>
+                Comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Was there mains power blackout in the last 24 hours?
+            </td>
+            <td colspan="3">
+
+            </td>
+            <td colspan="2">
+                <p>G1 Prev Eng </p>
+                <p>G1 Curr Eng </p>
+                <p>G2 Prev Eng </p>
+                <p>G2 Curr Eng </p>
+                <p>G3 Prev Eng </p>
+                <p>G3 Curr Eng </p>
+            </td>
+            <td>
+                <p>Total Engine starts statistics</p>
+                <p>G1- </p>
+                <p>G2- </p>
+                <p>G3- </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Check Genset control panel status
+            </td>
+            <td colspan="3">
+                AUT
+            </td>
+            <td colspan="2">
+                Genset Status
+            </td>
+            <td>
+                Comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Are there any UPS alarms?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status2">Status</label>
+                NO
+            </td>
+            <td>
+                Comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Gen battery voltage
+            </td>
+            <td colspan="3">
+                24 -28 V
+            </td>
+            <td colspan="2">
+                <p>G1 = </p>
+                <p>G2 = </p>
+                <p>G3 = </p>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="5">
+                Power usage
+            </td>
+            <td>
+
+            </td>
+            <td>
+                MIN
+            </td>
+            <td>
+                MAX
+            </td>
+            <td>
+                Grey
+            </td>
+            <td>
+                Orange
+            </td>
+            <td rowspan="5">
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Act pwr(KW)
+            </td>
+            <td>
+                64
+            </td>
+            <td>
+                94
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                Rct Pwr (kVAR)
+            </td>
+            <td>
+                -46
+            </td>
+            <td>
+                -31
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                App Pwr(kVA)
+            </td>
+            <td>
+                77
+            </td>
+            <td>
+                98
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                Pwr Factor(kVA)
+            </td>
+            <td>
+                0.9
+            </td>
+            <td>
+                0.9
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+
+        </tr>
+        <tr>
+            <td rowspan="8">
+                2.
+            </td>
+            <td rowspan="8">
+                Cooling
+            </td>
+            <td>
+                Are there any air conditioning unit (ACU) alerts?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status3">Status</label>
+                YES
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Are all the ACUs blowing cold air in the DC?
+            </td>
+            <td colspan="3">
+                YES
+            </td>
+            <td colspan="2">
+                <label for="Status4">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Are all the ACUs blowing cold air in the Power Rooms?
+            </td>
+            <td colspan="3">
+                YES
+            </td>
+            <td colspan="2">
+                <label for="Status5">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Are the ACUs locked?
+            </td>
+            <td colspan="3">
+                YES
+            </td>
+            <td colspan="2">
+                <label for="Status6">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                What is the average temperature on the white space?
+            </td>
+            <td colspan="3">
+                18℃-27℃
+            </td>
+            <td colspan="2">
+
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                What are the humidity levels in the white space?
+            </td>
+            <td colspan="3">
+                40% - 60%
+            </td>
+            <td colspan="2">
+
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                What is the average temperature in the power rooms?
+            </td>
+            <td colspan="3">
+                21℃-27℃
+            </td>
+            <td colspan="2">
+
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                What are the humidity levels in the power rooms?
+            </td>
+            <td colspan="3">
+                40% - 60%
+            </td>
+            <td colspan="2">
+
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">
+                3.
+            </td>
+            <td rowspan="3">
+                Fire detection and suppression
+            </td>
+            <td>
+                Does the fire suppression system display any alerts?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status7">Status</label>
+                YES
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                What is the Status of smoke detectors?
+            </td>
+            <td colspan="3">
+                OK
+            </td>
+            <td colspan="2">
+                <label for="Status8">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                What is the Status of water leak panel?
+            </td>
+            <td colspan="3">
+                OK
+            </td>
+            <td colspan="2">
+                <label for="Status9">Status</label>
+                YES
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                4.
+            </td>
+            <td>
+                Communication services
+            </td>
+            <td>
+                Are there any device alarms?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status10">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                5.
+            </td>
+            <td>
+                Servers
+            </td>
+            <td>
+                Are there any server alarms?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status11">Status</label>
+                YES
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="6">
+                6.
+            </td>
+            <td rowspan="6">
+                Network
+            </td>
+            <td>
+                Are there any alarms on the network equipment?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status12">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7">
+                Network Service Status:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Dark fibre Link A status
+            </td>
+            <td colspan="3">
+                OK
+            </td>
+            <td colspan="2">
+                <label for="Status13">Status</label>
+                OK
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Dark fibre Link B status
+            </td>
+            <td colspan="3">
+                OK
+            </td>
+            <td colspan="2">
+                <label for="Status14">Status</label>
+                OK
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Internet Link status-Saurus
+            </td>
+            <td colspan="3">
+                OK
+            </td>
+            <td colspan="2">
+                <label for="Status15">Status</label>
+                OK
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Internet Link status-LTK
+            </td>
+            <td colspan="3">
+                OK
+            </td>
+            <td colspan="2">
+                <label for="Status16">Status</label>
+                NOT OK
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                7.
+            </td>
+            <td>
+                Storage
+            </td>
+            <td>
+                Are there any alarms
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status17">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">
+                8.
+            </td>
+            <td rowspan="3">
+                CCTV and Access Control
+            </td>
+            <td>
+                Are all DC doors well locked?
+            </td>
+            <td colspan="3">
+                YES
+            </td>
+            <td colspan="2">
+                <label for="Status18">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Are all Data Centre Cameras in good working condition?
+            </td>
+            <td colspan="3">
+                YES
+            </td>
+            <td colspan="2">
+                <label for="Status19">Status</label>
+                YES
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Are there any Alarms/alerts/issues?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status20">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3">
+                9.
+            </td>
+            <td rowspan="3">
+                General Data Centre Areas
+            </td>
+            <td>
+                Are there any water leakages in the Data Centre facility?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status21">Status</label>
+                YES
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Is the facility clean and tidy?
+            </td>
+            <td colspan="3">
+                YES
+            </td>
+            <td colspan="2">
+                <label for="Status22">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Are there any obstructions or garbage near/ blocking the Data Centre facility?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status23">Status</label>
+                YES
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+        <tr>
+            <td>
+                10.
+            </td>
+            <td>
+                Contractors/ Vendors working in the DC facility.
+            </td>
+            <td>
+                Are there any contractors/visitors expected in the Data Centre?
+            </td>
+            <td colspan="3">
+                NO
+            </td>
+            <td colspan="2">
+                <label for="Status24">Status</label>
+                NO
+            </td>
+            <td>
+                comments
+            </td>
+        </tr>
+
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+[
+    {
+        "tanks": {
+            "tanks1_fuel_level": "32",
+            "tanks2_fuel_level": "8"
+        },
+        "generator_2": {
+            "fuel_level": "17",
+            "voltage": "14",
+            "prev_starts": "87",
+            "current_starts": "33"
+        },
+        "generator_1": {
+            "fuel_level": "81",
+            "voltage": "6",
+            "prev_starts": "22",
+            "current_starts": "36"
+        },
+        "generator_3": {
+            "fuel_level": "47",
+            "voltage": "28",
+            "prev_starts": "44",
+            "current_starts": "85"
+        }
+    },
+    {
+        "containment_a": {
+            "temperature": "95",
+            "humidity": "39"
+        },
+        "containment_b": {
+            "temperature": "14",
+            "humidity": "68"
+        },
+        "averages": {
+            "temperature_average": 54.5,
+            "humidity_average": 53.5
+        }
+    },
+    {
+        "orange_room": {
+            "temperature": "90",
+            "humidity": "89",
+            "active_power": "7",
+            "reactive_power": "50",
+            "apparent_power": "78",
+            "power_factor": "79"
+        },
+        "split_room": {
+            "temperature": "10",
+            "humidity": "16"
+        },
+        "grey_room": {
+            "temperature": "29",
+            "humidity": "88",
+            "active_power": "20",
+            "reactive_power": "82",
+            "apparent_power": "10",
+            "power_factor": "67"
+        },
+        "lower_room": {
+            "temperature": "85",
+            "humidity": "29"
+        }
+    }
+]

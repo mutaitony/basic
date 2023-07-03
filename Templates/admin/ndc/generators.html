@@ -31,12 +31,6 @@
                                   <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Generator 3</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="disabled-tab" data-toggle="tab" data-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">Generator 4</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="total-hrs-tab" data-toggle="tab" data-target="#total-hrs-tab-pane" type="button" role="tab" aria-controls="total-hrs-tab-pane" aria-selected="false">Remaining Hrs</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
                                   <button class="nav-link" id="tanks-tab" data-toggle="tab" data-target="#tanks-tab-pane" type="button" role="tab" aria-controls="tanks-tab-pane" aria-selected="false">Tanks</button>
                                 </li>
                               </ul>
@@ -52,10 +46,11 @@
                                     <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_level" id="g1_fuel_level">
                                   </div>
                                 </div>
+                                
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
-                                    <label for="g1_run_time">Run Time Hours</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="run_time" id="g1_run_time">
+                                    <label for="g1_voltage">Voltage</label>
+                                    <input type="number" value="27.6" class="form-control all-inputs some_inputs" name="voltage" id="g1_voltage">
                                   </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md">
@@ -67,13 +62,13 @@
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
                                     <label for="g1_current_starts">Current Starts</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="current_starts" id="g1_current_starts">
+                                    <input type="number" value="0" oninput="g1_diff.value=parseInt(g1_current_starts.value)-parseInt(g1_prev_starts.value)" class="form-control all-inputs some_inputs" name="current_starts" id="g1_current_starts">
                                   </div>
                                 </div>
                                 <div class="col-xl-12 col-lg-12 col-md">
                                   <div class="form-group">
-                                    <label for="g1_total_starts">Total Starts</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="total_starts" id="g1_total_starts">
+                                    <label for="g1_diff">Starts Difference</label>
+                                    <output type="number" value="0" class="form-control all-inputs some_inputs" for="g1_current_starts g1_prev_starts" name="starts_difference" id="g1_diff"></output>
                                   </div>
                                 </div>
                                 <div class="col-12">
@@ -100,8 +95,8 @@
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
-                                    <label for="g2_run_time">Run Time Hours</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="run_time" id="g2_run_time">
+                                    <label for="g2_voltage">Voltage</label>
+                                    <input type="number" value="27.6" class="form-control all-inputs some_inputs" name="voltage" id="g2_voltage">
                                   </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md">
@@ -113,14 +108,14 @@
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
                                     <label for="g2_current_starts">Current Starts</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="current_starts" id="g2_current_starts">
+                                    <input type="number" value="0" oninput="g2_diff.value=parseInt(g2_current_starts.value)-parseInt(g2_prev_starts.value)" class="form-control all-inputs some_inputs" name="current_starts" id="g2_current_starts">
                                   </div>
                                 </div>
                                 <div class="col-xl-12 col-lg-12 col-md">
                                   <div class="form-group">
-                                    <label for="g2_total_starts">Total Starts</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="total_starts" id="g2_total_starts">
-                                  </div>
+                                    <label for="g2_diff">Starts Difference</label>
+                                    <output type="number" value="0" class="form-control all-inputs some_inputs" for="g2_current_starts g2_prev_starts" name="starts_difference" id="g2_diff"></output>
+                                </div>
                                 </div>
                                 <div class="col-12">
                                     <button type="button" form="generator_2" class="submit float-end btn btn-secondary btn-sm generator_2">Save</button>
@@ -146,8 +141,8 @@
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
-                                    <label for="g3_run_time">Run Time Hours</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="run_time" id="g3_run_time">
+                                    <label for="g3_voltage">Voltage</label>
+                                    <input type="number" value="27.6" class="form-control all-inputs some_inputs" name="voltage" id="g3_voltage">
                                   </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md">
@@ -159,14 +154,14 @@
                                 <div class="col-xl-6 col-lg-6 col-md">
                                   <div class="form-group">
                                     <label for="g3_current_starts">Current Starts</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="current_starts" id="g3_current_starts">
+                                    <input type="number" value="0" oninput="g3_diff.value=parseInt(g3_current_starts.value)-parseInt(g3_prev_starts.value)" class="form-control all-inputs some_inputs" name="current_starts" id="g3_current_starts">
                                   </div>
                                 </div>
                                 <div class="col-xl-12 col-lg-12 col-md">
                                   <div class="form-group">
-                                    <label for="g3_total_starts">Total Starts</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="total_starts" id="g3_total_starts">
-                                  </div>
+                                    <label for="g3_diff">Starts Difference</label>
+                                    <output type="number" value="0" class="form-control all-inputs some_inputs" for="g3_current_starts g3_prev_starts" name="starts_difference" id="g3_diff"></output>
+                                </div>
                                 </div>
                                 <div class="col-12">
                                     <button type="button" form="generator_3" class="submit float-end btn btn-secondary btn-sm generator_3">Save</button>
@@ -174,76 +169,6 @@
                               </div>
                               </form>
                               </div>
-                            </div>
-                            </div>
-                            <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
-                            <div class="card mb-2">
-                                <!-- <div class="card-header bg-danger text-white py-2">
-                                    <h5 class="h6 fw-bold">Generator Four</h5>
-                                </div> -->
-                                <div class="card-body">
-                              <form id="generator_4">
-                              <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md">
-                                  <div class="form-group">
-                                    <label for="g4_fuel_level">Fuel Level</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_level" id="g4_fuel_level">
-                                  </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md">
-                                  <div class="form-group">
-                                    <label for="g4_run_time">Run Time Hours</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="run_time" id="g4_run_time">
-                                  </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md">
-                                  <div class="form-group">
-                                    <label for="g4_prev_starts">Previous Starts</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="prev_starts" id="g4_prev_starts">
-                                  </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md">
-                                  <div class="form-group">
-                                    <label for="g4_current_starts">Current Starts</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="current_starts" id="g4_current_starts">
-                                  </div>
-                                </div>
-                                <div class="col-xl-12 col-lg-12 col-md">
-                                  <div class="form-group">
-                                    <label for="g4_total_starts">Total Starts</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="total_starts" id="g4_total_starts">
-                                  </div>
-                                </div>
-                                <div class="col-12">
-                                    <button type="button" form="generator_4" class="submit float-end btn btn-secondary btn-sm generator_4">Save</button>
-                                  </div>
-                              </div>
-                              </form>
-                              </div>
-                            </div>
-                            </div>
-                            <div class="tab-pane fade" id="total-hrs-tab-pane" role="tabpanel" aria-labelledby="total-hrs-tab" tabindex="0">
-                              <div class="card mb-2">
-                                  <div class="card-body">
-                                    <form>
-                              <div class="col-xl-12 col-lg-12 col-md">
-                                  <div class="form-group">
-                                    <label for="hrs_remaining">Total Hours Remaining</label>
-                                    <output class="form-control" name="hrs_remaining" id="hrs_remaining"></output>
-                                  </div>
-                              </div>
-                              <div class="col-12">
-                                  <button class="btn btn-secondary btn-sm float-end" type="button" id="get_hrs_remaining">
-                                    Get Total and Save
-                                  </button>
-                                </div>
-                                </form>
-                                </div>
-                          <div class="card-footer">
-                              <button class="btn btn-success w-100" type="button" id="save_all_data">
-                                Save All Generators Data
-                              </button>
-                            </div>
                             </div>
                             </div>
                             <div class="tab-pane fade" id="tanks-tab-pane" role="tabpanel" aria-labelledby="tanks-tab" tabindex="0">
@@ -262,12 +187,6 @@
                                       <input type="number" value="0" class="form-control all-inputs some_inputs" name="tanks2_fuel_level" id="tanks2_fuel_level">
                                     </div>
                                   </div>
-                                <div class="col-xl-12 col-lg-12 col-md">
-                                    <div class="form-group">
-                                      <label for="fuel_remaining">% Fuel Remaining</label>
-                                      <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_remaining" id="fuel_remaining">
-                                    </div>
-                                  </div>
                                   <div class="col-12">
                                     <button class="btn btn-secondary btn-sm float-end tanks" form="tanks" type="button" id="get_hrs_remaining">
                                       Save
@@ -283,6 +202,9 @@
                         <div class="col-xl-3 col-lg-3 col-md">
                           <div class="fw-bolder" id="dateTime"></div>
                           <hr class="bg-black py-1 my-1">
+                          <button class="btn btn-success w-100 mb-2" disabled="true" type="button" id="save_all_data">
+                            Save All Collect Data
+                          </button>
                           <div class="fw-bold d-flex justify-content-between">
                             <span>Preview</span>
                             <button class="btn btn-danger btn-sm py-0 clear-cookie">Clear</button>
@@ -303,8 +225,12 @@
         </div>
         <!-- End of Content Wrapper -->
         <script>
-          const all_data = {}
+          var all_data = {}
+          
           $(function(){
+            if ($.cookie("generators")){
+              all_data = JSON.parse($.cookie("generators"))
+            }
             $('.generator_1').click(function(e){
               data = MakeSerial('generator_1')
               Preview()
@@ -317,14 +243,11 @@
               data = MakeSerial('generator_3')
               Preview()
             })
-            $('.generator_4').click(function(e){
-              data = MakeSerial('generator_4')
-              Preview()
-            })
             $('.tanks').click(function(e){
               data = MakeSerial('tanks')
               Preview()
             })
+            
             $('.clear-cookie').click(function(e){
               if ($.cookie("generators")){
                 $.removeCookie('generators', { path: '/' });
@@ -371,6 +294,10 @@
             $('#no-data').addClass('visually-hidden');
             $('#preview').html('');
             todayData = JSON.parse($.cookie("generators"))
+            if (Object.keys(todayData).length == 4){
+              console.log(todayData)
+              $('#save_all_data').prop( "disabled", false )
+            }
             $.each(todayData, function(index, value){
               var t = '';
               $.each(value, function(index2, value2){

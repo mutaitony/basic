@@ -36,6 +36,10 @@ def load_user(user_id):
     if user_id:
         return Users.query.get(user_id)
     
+# @login_manager.request_loader
+# def request_loader(request, user):
+#     return user
+    
 @app.errorhandler(HTTPException)
 def error_handler(e):
     response = e.get_response()

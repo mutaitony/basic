@@ -1,34 +1,1007 @@
 {% extends 'admin/base/admin_base.html'%}
 {% block admin%}
-        <div id="content-wrapper" class="d-flex flex-column">
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js'></script> -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+></script>
+<div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
-            <div id="content">
+    <!-- Main Content -->
+    <div id="content">
 
-                <!-- Topbar -->
-                {% include 'admin/base/navbar_base.html' %}
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <div class="mb-3 d-flex justify-content-between">
-                        <h1 class="h5 text-gray-800">Comments</h1>
-                        <a href="{{url_for('dashboard')}}" class="btn btn-sm btn-primary">Back</a>
-                      </div>
-                    <!-- Page Heading -->
-                    
-
+        <!-- Topbar -->
+        {% include 'admin/base/navbar_base.html' %}
+        <!-- End of Topbar -->
+        
+        <!-- Begin Page Content -->
+        
+        <div class="container-fluid">
+            <div class="mb-3 d-flex justify-content-between">
+                <h1 class="h5 text-gray-800">Comments</h1>
+                <div>
+                    <span class="fw-bolder" id="dateTime"></span>
+                    <button id="save_all_comments_btn" class="btn btn-sm btn-info"><i class="fa fa-folder"></i> Save and <i class="fa fa-print" aria-hidden="true"></i> Print Report </button>
+                    <a href="{{url_for('dashboard')}}" class="btn btn-sm btn-primary">Back</a>
                 </div>
-                <!-- /.container-fluid -->
-
+                
             </div>
-            <!-- End of Main Content -->
+            <div class="table" style="max-height: 70vh; overflow-y:scroll;">
+                <form method="post" id="all_comments">
+                    <h5 class="fw-bold">Power</h5>
+                    <table id="myTable" class="table table-bordered table-responsive table-striped table-hover">
+                        <tr>
+                            <th>
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th>
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Check Genset Fuel level base tanks
+                            </td>
+                            <td colspan="3">
+                                <p>G1-842L</p>
+                                <p>G2-842L</p>
+                                <p>G3-842L</p>
+                            </td>
+                            <td colspan="2">
+                                <input hidden name="fuel_level_base_tank_g1" value="{{generators.data.generator_1.fuel_level}}">
+                                <input hidden name="fuel_level_base_tank_g2" value="{{generators.data.generator_2.fuel_level}}">
+                                <input hidden name="fuel_level_base_tank_g3" value="{{generators.data.generator_3.fuel_level}}">
+                                <p>G1- {{generators.data.generator_1.fuel_level}}</p>
+                                <p>G2- {{generators.data.generator_2.fuel_level}}</p>
+                                <p>G3- {{generators.data.generator_3.fuel_level}}</p>
+                            </td>
+                            <td style="width: 35%;">
+                                <input hidden name="fuel_level_base_tank_g1_runtime" value="{{'{:,.4f}'.format(generators.data.generator_1.fuel_level|int/36)}}">
+                                <input hidden name="fuel_level_base_tank_g2_runtime" value="{{'{:,.4f}'.format(generators.data.generator_2.fuel_level|int/36)}}">
+                                <input hidden name="fuel_level_base_tank_g3_runtime" value="{{'{:,.4f}'.format(generators.data.generator_3.fuel_level|int/36)}}">
+                                <input hidden name="fuel_level_base_tank_runtime_average" value='{{"{:,.4f}".format(generators.data.generator_1.fuel_level|int/36 + generators.data.generator_2.fuel_level|int/36 + generators.data.generator_3.fuel_level|int/36)}}'>
+                                <p> {{"{:,.4f}".format(generators.data.generator_1.fuel_level|int/36)}} Runtime Hours</p>
+                                <p> {{"{:,.4f}".format(generators.data.generator_2.fuel_level|int/36)}} Runtime Hours</p>
+                                <p> {{"{:,.4f}".format(generators.data.generator_3.fuel_level|int/36)}} Runtime Hours</p>
+                                <p>{{"{:,.4f}".format(generators.data.generator_1.fuel_level|int/36 + generators.data.generator_2.fuel_level|int/36 + generators.data.generator_3.fuel_level|int/36)}} TOTAL RUNTIME HOURS REMAINING</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Check Genset Fuel level external tanks
+                            </td>
+                            <td colspan="3">
+                                <p>T1-1450L</p>
+                                <p>T2-1450L</p>
+                            </td>
+                            <td colspan="2">
+                                <input hidden name="fuel_level_external_tanks_tanks1" value="{{generators.data.tanks.tanks1_fuel_level}}">
+                                <input hidden name="fuel_level_external_tanks_tanks2" value="{{generators.data.tanks.tanks2_fuel_level}}">
+                                <p>T1- {{generators.data.tanks.tanks1_fuel_level}}</p>
+                                <p>T2- {{generators.data.tanks.tanks2_fuel_level}}</p>
+                            </td>
+                            <td style="width: 35%;">
+                                <input hidden name="fuel_level_external_tanks_fuel_remaining" value="{{(generators.data.tanks.tanks1_fuel_level|int + generators.data.tanks.tanks2_fuel_level|int)/250000}}">
+                                <p>{{(generators.data.tanks.tanks1_fuel_level|int + generators.data.tanks.tanks2_fuel_level|int)/250000}} % FUEL REMAINING</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Check the Genset engine health. Are there any Alarms /errors on the Gensets?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status">Status</label>
+                                <select name="genset_engine_health_comment" class="form-control form-control-sm" id="Status">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea class="form-control" cols="6" rows="4" placeholder="Comments"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Was there mains power blackout in the last 24 hours?
+                            </td>
+                            <td colspan="3">
 
-            <!-- Footer -->
-            {% include 'admin/base/footer_base.html' %}
-            <!-- End of Footer -->
+                            </td>
+                            <td colspan="2">
+                                <input hidden name="gen_starts_g1_prev" value="{{generators.data.generator_1.prev_starts}}">
+                                <input hidden name="gen_starts_g1_current" value="{{generators.data.generator_1.current_starts}}">
+                                <input hidden name="gen_starts_g2_prev" value="{{generators.data.generator_2.prev_starts}}">
+                                <input hidden name="gen_starts_g2_current" value="{{generators.data.generator_2.current_starts}}">
+                                <input hidden name="gen_starts_g3_prev" value="{{generators.data.generator_3.prev_starts}}">
+                                <input hidden name="gen_starts_g3_current" value="{{generators.data.generator_3.current_starts}}">
+                                <p>G1 Prev Eng {{generators.data.generator_1.prev_starts}}</p>
+                                <p>G1 Curr Eng {{generators.data.generator_1.current_starts}}</p>
+                                <p>G2 Prev Eng {{generators.data.generator_2.prev_starts}}</p>
+                                <p>G2 Curr Eng {{generators.data.generator_2.current_starts}}</p>
+                                <p>G3 Prev Eng {{generators.data.generator_3.prev_starts}}</p>
+                                <p>G3 Curr Eng {{generators.data.generator_3.current_starts}}</p>
+                            </td>
+                            <td>
+                                <input hidden name="starts_statistics_g1" value="{{generators.data.generator_1.current_starts|int - generators.data.generator_1.prev_starts|int}}">
+                                <input hidden name="starts_statistics_g2" value="{{generators.data.generator_2.current_starts|int - generators.data.generator_2.prev_starts|int}}">
+                                <input hidden name="starts_statistics_g3" value="{{generators.data.generator_3.current_starts|int - generators.data.generator_3.prev_starts|int}}">
+                                <p>Total Engine starts statistics</p>
+                                <p>G1- {{generators.data.generator_1.current_starts|int - generators.data.generator_1.prev_starts|int}}</p>
+                                <p>G2- {{generators.data.generator_2.current_starts|int - generators.data.generator_2.prev_starts|int}}</p>
+                                <p>G3- {{generators.data.generator_3.current_starts|int - generators.data.generator_3.prev_starts|int }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Check Genset control panel status
+                            </td>
+                            <td colspan="3">
+                                AUT
+                            </td>
+                            <td colspan="2">
+                                <textarea name="genset_control_panel_status" class="form-control" cols="6" rows="4" placeholder="Genset Status">AUT</textarea>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="genset_control_panel_status_comment" class="form-control" cols="6" rows="4" placeholder="Comments"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any UPS alarms?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status2">Status</label>
+                                <select name="ups_alarms" class="form-control form-control-sm" id="Status2">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="ups_alarm_comment" class="form-control" cols="6" rows="4" placeholder="Comments"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Gen battery voltage
+                            </td>
+                            <td colspan="3">
+                                24 -28 V
+                            </td>
+                            <td colspan="2">
+                                <input hidden name="battery_voltage_g1" value="{{generators.data.generator_1.voltage}}">
+                                <input hidden name="battery_voltage_g2" value="{{generators.data.generator_2.voltage}}">
+                                <input hidden name="battery_voltage_g3" value="{{generators.data.generator_3.voltage}}">
+                                <p>G1 = {{generators.data.generator_1.voltage}}</p>
+                                <p>G2 = {{generators.data.generator_2.voltage}}</p>
+                                <p>G3 = {{generators.data.generator_3.voltage}}</p>
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5">
+                                Power usage
+                            </td>
+                            <td>
+
+                            </td>
+                            <th>
+                                MIN
+                            </th>
+                            <th>
+                                MAX
+                            </th>
+                            <th>
+                                Grey
+                            </th>
+                            <th>
+                                Orange
+                            </th>
+                            <td rowspan="5">
+                                <textarea name="power_usage_comment" class="form-control" cols="6" rows="4" rows="5"
+                                    placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Act pwr(KW)
+                            </th>
+                            <td>
+                                64
+                            </td>
+                            <td>
+                                94
+                            </td>
+                            <td>
+                                <input hidden name="grey_active_pwr" value="{{power_rooms.data.grey_room.active_power}}">
+                                {{power_rooms.data.grey_room.active_power}}
+                            </td>
+                            <td>
+                                <input hidden name="orange_active_pwr" value="{{power_rooms.data.orange_room.active_power}}">
+                                {{power_rooms.data.orange_room.active_power}}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>
+                                Rct Pwr (kVAR)
+                            </th>
+                            <td>
+                                -46
+                            </td>
+                            <td>
+                                -31
+                            </td>
+                            <td>
+                                <input hidden name="grey_reactive_pwr" value="{{power_rooms.data.grey_room.reactive_power}}">
+                                {{power_rooms.data.grey_room.reactive_power}}
+                            </td>
+                            <td>
+                                <input hidden name="orange_reactive_pwr" value="{{power_rooms.data.orange_room.reactive_power}}">
+                                {{power_rooms.data.orange_room.reactive_power}}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>
+                                App Pwr(kVA)
+                            </th>
+                            <td>
+                                77
+                            </td>
+                            <td>
+                                98
+                            </td>
+                            <td>
+                                <input hidden name="grey_apparent_pwr" value="{{power_rooms.data.grey_room.apparent_power}}">
+                                {{power_rooms.data.grey_room.apparent_power}}
+                            </td>
+                            <td>
+                                <input hidden name="orange_apparent_pwr" value="{{power_rooms.data.orange_room.apparent_power}}">
+                                {{power_rooms.data.orange_room.apparent_power}}
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th>
+                                Pwr Factor(kVA)
+                            </th>
+                            <td>
+                                0.9
+                            </td>
+                            <td>
+                                0.9
+                            </td>
+                            <td>
+                                <input hidden name="grey_pwr_factor" value="{{power_rooms.data.grey_room.power_factor}}">
+                                {{power_rooms.data.grey_room.power_factor}}
+                            </td>
+                            <td>
+                                <input hidden name="orange_pwr_factor" value="{{power_rooms.data.orange_room.power_factor}}">
+                                {{power_rooms.data.orange_room.power_factor}}
+                            </td>
+
+                        </tr>
+                    </table>
+                    <h5 class="fw-bold">Cooling</h5>
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th scope="col">
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th scope="col">
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any air conditioning unit (ACU) alerts?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status3">Status</label>
+                                <select name="air_conditioning_alerts" class="form-control form-control-sm" id="Status3">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="air_conditioning_alerts_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are all the ACUs blowing cold air in the DC?
+                            </td>
+                            <td colspan="3">
+                                YES
+                            </td>
+                            <td colspan="2">
+                                <label for="Status4">Status</label>
+                                <select name="all_acus_blowing_dc" class="form-control form-control-sm" id="Status4">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="all_acus_blowing_dc_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are all the ACUs blowing cold air in the Power Rooms?
+                            </td>
+                            <td colspan="3">
+                                YES
+                            </td>
+                            <td colspan="2">
+                                <label for="Status5">Status</label>
+                                <select name="all_acus_blowing_power_rooms" class="form-control form-control-sm" id="Status5">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="all_acus_blowing_power_rooms_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are the ACUs locked?
+                            </td>
+                            <td colspan="3">
+                                YES
+                            </td>
+                            <td colspan="2">
+                                <label for="Status6">Status</label>
+                                <select name="acus_locked" class="form-control form-control-sm" id="Status6">
+                                    <option></option>
+                                    <option selected value="YES">YES</option>
+                                    <option >NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="acus_locked_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                What is the average temperature on the white space?
+                            </td>
+                            <td colspan="3">
+                                18℃-27℃
+                            </td>
+                            <td colspan="2">
+                                <input hidden name="ave_temp_whitespace" value="{{whitespace.data.averages.temperature_average}}">
+                                {{whitespace.data.averages.temperature_average}}
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="average_temperature_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                What are the humidity levels in the white space?
+                            </td>
+                            <td colspan="3">
+                                40% - 60%
+                            </td>
+                            <td colspan="2">
+                                <input hidden name="ave_hum_whitespace" value="{{whitespace.data.averages.humidity_average}}">
+                                {{whitespace.data.averages.humidity_average}}
+                            </td>
+                            <td>
+                                <textarea name="ave_hum_whitespace_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                What is the average temperature in the power rooms?
+                            </td>
+                            <td colspan="3">
+                                21℃-27℃
+                            </td>
+                            <td colspan="2">
+                                <input hidden name="ave_temp_power_rooms" value="{{avg_tempPw}}">
+                                {{avg_tempPw}}
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="ave_temp_power_rooms_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                What are the humidity levels in the power rooms?
+                            </td>
+                            <td colspan="3">
+                                40% - 60%
+                            </td>
+                            <td colspan="2">
+                                <input hidden name="ave_hum_power_rooms" value="{{avg_humPw}}">
+                                {{avg_humPw}}
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="ave_hum_power_rooms_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5 class="fw-bold">Fire detection and suppression</h5>
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th scope="col">
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th scope="col">
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Does the fire suppression system display any alerts?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status7">Status</label>
+                                <select name="suppression_system_display_any_alerts" class="form-control form-control-sm" id="Status7">
+                                    <option></option>
+                                    <option selected value="YES">YES</option>
+                                    <option >NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="suppression_system_display_any_alerts_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                What is the Status of smoke detectors?
+                            </td>
+                            <td colspan="3">
+                                OK
+                            </td>
+                            <td colspan="2">
+                                <label for="Status8">Status</label>
+                                <select name="status_of_smoke_detectors" class="form-control form-control-sm" id="Status8">
+                                    <option></option>
+                                    <option value="YES" selected>OK</option>
+                                    <option>NOT OK</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="status_of_smoke_detectors_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                What is the Status of water leak panel?
+                            </td>
+                            <td colspan="3">
+                                OK
+                            </td>
+                            <td colspan="2">
+                                <label for="Status9">Status</label>
+                                <select name="status_of_water_leak_panel" class="form-control form-control-sm" id="Status9">
+                                    <option></option>
+                                    <option value="YES" selected>OK</option>
+                                    <option>NOT OK</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="status_of_water_leak_panel_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5 class="fw-bold">Communication services</h5>
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th scope="col">
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th scope="col">
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any device alarms?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status10">Status</label>
+                                <select name="any_device_alarms" class="form-control form-control-sm" id="StatuS10">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="any_device_alarms_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5 class="fw-bold">Servers</h5>
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th scope="col">
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th scope="col">
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any server alarms?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status11">Status</label>
+                                <select name="any_server_alarms" class="form-control form-control-sm" id="StatuS11">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="any_server_alarms_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5 class="fw-bold">Network</h5>
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th scope="col">
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th scope="col">
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any alarms on the network equipment?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status12">Status</label>
+                                <select name="any_alarms_on_the_network_equipment"  class="form-control form-control-sm" id="StatuS12">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="any_alarms_on_the_network_equipment_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th colspan="7">
+                                Network Service Status:
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Dark fibre Link A status
+                            </td>
+                            <td colspan="3">
+                                OK
+                            </td>
+                            <td colspan="2">
+                                <label for="Status13">Status</label>
+                                <select name="dark_fibre_link_a_status" class="form-control form-control-sm" id="Status13">
+                                    <option></option>
+                                    <option selected value="YES">OK</option>
+                                    <option>NOT OK</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="dark_fibre_link_a_status_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Dark fibre Link B status
+                            </td>
+                            <td colspan="3">
+                                OK
+                            </td>
+                            <td colspan="2">
+                                <label for="Status14">Status</label>
+                                <select name="dark_fibre_link_b_status" class="form-control form-control-sm" id="Status14">
+                                    <option></option>
+                                    <option selected value="YES">OK</option>
+                                    <option>NOT OK</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="dark_fibre_link_b_status_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Internet Link status-Saurus
+                            </td>
+                            <td colspan="3">
+                                OK
+                            </td>
+                            <td colspan="2">
+                                <label for="Status15">Status</label>
+                                <select name="internet_link_status_saurus" class="form-control form-control-sm" id="Status15">
+                                    <option></option>
+                                    <option selected value="YES">OK</option>
+                                    <option>NOT OK</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="internet_link_status_saurus_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Internet Link status-LTK
+                            </td>
+                            <td colspan="3">
+                                OK
+                            </td>
+                            <td colspan="2">
+                                <label for="Status16">Status</label>
+                                <select name="internet_link_status_ltk" class="form-control form-control-sm" id="Status16">
+                                    <option></option>
+                                    <option selected value="YES">OK</option>
+                                    <option>NOT OK</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="internet_link_status_ltk_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5 class="fw-bold">Storage</h5>
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th scope="col">
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th scope="col">
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any alarms
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status17">Status</label>
+                                <select name="are_there_any_alarms" class="form-control form-control-sm" id="StatuS17">
+                                    <option></option>
+                                    <option value="YES" >YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="are_there_any_alarms_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5 class="fw-bold">CCTV and Access Control</h5>
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th scope="col">
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th scope="col">
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are all DC doors well locked?
+                            </td>
+                            <td colspan="3">
+                                YES
+                            </td>
+                            <td colspan="2">
+                                <label for="Status18">Status</label>
+                                <select name="are_all_dc_doors_well_locked" class="form-control form-control-sm" id="StatuS18">
+                                    <option></option>
+                                    <option value="YES" selected>YES</option>
+                                    <option>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="are_all_dc_doors_well_locked_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are all Data Centre Cameras in good working condition?
+                            </td>
+                            <td colspan="3">
+                                YES
+                            </td>
+                            <td colspan="2">
+                                <label for="Status19">Status</label>
+                                <select name="are_all_data_centre_cameras_in_good_working_condition" class="form-control form-control-sm" id="StatuS19">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="are_all_data_centre_cameras_in_good_working_condition_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any Alarms/alerts/issues?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status20">Status</label>
+                                <select name="are_there_any_alarms_issues" class="form-control form-control-sm" id="StatuS20">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="are_there_any_alarms_issues_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5 class="fw-bold">General Data Centre Areas</h5>
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th scope="col">
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th scope="col">
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any water leakages in the Data Centre facility?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status21">Status</label>
+                                <select name="water_leakages_in_the_data_centre_facility" class="form-control form-control-sm" id="StatuS21">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="water_leakages_in_the_data_centre_facility_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Is the facility clean and tidy?
+                            </td>
+                            <td colspan="3">
+                                YES
+                            </td>
+                            <td colspan="2">
+                                <label for="Status22">Status</label>
+                                <select name="facility_clean_and_tidy" class="form-control form-control-sm" id="StatuS22">
+                                    <option></option>
+                                    <option value="YES" selected>YES</option>
+                                    <option>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="facility_clean_and_tidy_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any obstructions or garbage near/ blocking the Data Centre facility?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status23">Status</label>
+                                <select name="obstructions_or_garbage_near_dc" class="form-control form-control-sm" id="StatuS23">
+                                    <option></option>
+                                    <option value="YES">YES</option>
+                                    <option selected>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="obstructions_or_garbage_near_dc_comment" class="form-control" cols="6" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                    <h5 class="fw-bold">Contractors/ Vendors working in the DC facility.</h5>
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <th >
+                                WalkThrough Activity
+                            </th>
+                            <th colspan="3">
+                                Normal Status
+                            </th>
+                            <th colspan="2">
+                                Current Status
+                            </th scope="col">
+                            <th scope="col" colspan="3">
+                                Comments
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">
+                                Are there any contractors/visitors expected in the Data Centre?
+                            </td>
+                            <td colspan="3">
+                                NO
+                            </td>
+                            <td colspan="2">
+                                <label for="Status24">Status</label>
+                                <select name="any_contractors_visitors_expected" class="form-control form-control-sm" id="Status24">
+                                    <option></option>
+                                    <option value="YES" selected>YES</option>
+                                    <option>NO</option>
+                                </select>
+                            </td>
+                            <td style="width: 35%;">
+                                <textarea name="any_contractors_visitors_expected_comment" class="form-control" cols="8" rows="4" placeholder="comments"> </textarea>
+                            </td>
+                        </tr>
+
+                    </table>
+                </form>
+            </div>
+            <!-- Page Heading -->
+
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- /.container-fluid -->
 
-    {%endblock%}
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    {% include 'admin/base/footer_base.html' %}
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+<script>
+    
+    //var pdfdoc = new jsPDF('l', 'mm', [297, 210]);
+    //var specialElementHandlers = {
+    //    '#ignoreContent': function (element, renderer) {
+    //        return true;
+    //    }
+    //};
+    
+    var opt = {
+        margin:       0.3,
+        filename:     '"{{today}}".pdf',
+        pagebreak:    { mode: ["avoid-all", "css"]},
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'A4', orientation: 'landscape' ,compress: true,}
+      };
+
+    $('#save_all_comments_btn').click(function(){
+        var d = $('#all_comments').serializeArray()
+        var all_data = {}
+        $("div.spanner").addClass("show");
+        $("div.overlay").addClass("show");
+        $("body").addClass('body-noscroll')
+        $.each(d, function(index, value){
+            all_data[value.name] = value.value
+        })
+        $.ajax({
+            url: '{{url_for("generate_pdf")}}',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(all_data),
+            traditional: true
+        }).done((data) => {
+            //console.log(data)
+            html2pdf()
+            .set(opt)
+            .from(data)
+            .save()
+            .then(function(dt){
+                $("div.spanner").removeClass("show");
+                $("div.overlay").removeClass("show");
+                $("body").removeClass('body-noscroll')
+            });
+            
+
+          });
+                    
+    })
+</script>
+{%endblock%}
