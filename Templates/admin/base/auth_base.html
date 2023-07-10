@@ -20,10 +20,12 @@
 
     <!-- Custom styles for this template-->
     <link href="{{url_for('static', filename='assets/boot/css/sb-admin-2.min.css')}}" rel="stylesheet">
-
+    {{ toastr.include_toastr_css() }}
+    {{ toastr.message() }}
+    {{ toastr.include_toastr_js() }}
 </head>
 
-<body class="bg-dark w-100" style="overflow-x: hidden;">
+<body class="w-100" style="background-color: black;">
 
 {% block auth %}
 {%endblock%}

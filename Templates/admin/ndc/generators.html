@@ -1,6 +1,8 @@
 {% extends 'admin/base/admin_base.html'%}
 {% block admin%}
-
+<script>
+  $('.dashboard-pane').addClass('active');
+</script>
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
@@ -41,9 +43,9 @@
                               <form id="generator_1">
                               <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md">
-                                  <div class="form-group">
-                                    <label for="g1_fuel_level">Fuel Level</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_level" id="g1_fuel_level">
+                                  <div class="form-group fuel_level_div">
+                                    <label for="g1_fuel_level">Fuel Level <span class="text-danger ms-1"></span></label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs fuel_level" name="fuel_level" id="g1_fuel_level">
                                   </div>
                                 </div>
                                 
@@ -88,9 +90,9 @@
                               <form id="generator_2">
                               <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md">
-                                  <div class="form-group">
-                                    <label for="g2_fuel_level">Fuel Level</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_level" id="g2_fuel_level">
+                                  <div class="form-group fuel_level_div">
+                                    <label for="g2_fuel_level">Fuel Level <span class="text-danger ms-1"></span></label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs fuel_level" name="fuel_level" id="g2_fuel_level">
                                   </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md">
@@ -134,9 +136,9 @@
                               <form id="generator_3">
                               <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md">
-                                  <div class="form-group">
-                                    <label for="g3_fuel_level">Fuel Level</label>
-                                    <input type="number" value="0" class="form-control all-inputs some_inputs" name="fuel_level" id="g3_fuel_level">
+                                  <div class="form-group fuel_level_div">
+                                    <label for="g3_fuel_level">Fuel Level <span class="text-danger ms-1"></span></label>
+                                    <input type="number" value="0" class="form-control all-inputs some_inputs fuel_level" name="fuel_level" id="g3_fuel_level">
                                   </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md">
@@ -226,6 +228,17 @@
         <!-- End of Content Wrapper -->
         <script>
           var all_data = {}
+
+          $('.fuel_level_div input').on('keyup', function(){
+            console.log($(this).val());
+            $(this).parent().find('span').html()
+            if ($(this).val() < 400){
+              $(this).parent().find('span').html('Refueling needed!')
+            }
+            else{
+              $(this).parent().find('span').html('<i class="bi bi-patch-check-fill text-success"></i>')
+            }
+          })
           
           $(function(){
             if ($.cookie("generators")){

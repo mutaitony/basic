@@ -29,3 +29,10 @@ app.add_url_rule('/ndc/new', 'new', new, methods=['POST', 'GET'], strict_slashes
 
 app.add_url_rule('/<urls>', 'urlf', urlf, methods=['POST', 'GET'], strict_slashes=False)
 app.add_url_rule('/ndc/generate_pdf', 'generate_pdf', generate_pdf, methods=['POST', 'GET'], strict_slashes=False)
+app.add_url_rule('/ndc/change_email', 'change_email', change_email, methods=['POST', 'GET'], strict_slashes=False)
+app.add_url_rule('/ndc/change_password', 'change_password', change_password, methods=['POST', 'GET'], strict_slashes=False)
+app.add_url_rule('/ndc/change_name', 'change_name', change_name, methods=['POST', 'GET'], strict_slashes=False)
+app.add_url_rule('/ndc/change_username', 'change_username', change_username, methods=['POST', 'GET'], strict_slashes=False)
+app.add_url_rule('/ndc/delete_account', 'delete_account', delete_account, methods=['POST', 'GET'], strict_slashes=False)
+app.add_url_rule('/ndc/download_comments/<int:logs>', 'download_comments', download_comments, methods=['POST', 'GET'], strict_slashes=False)
+app.add_url_rule('/ndc/priview_logs', 'priview_logs', priview_logs, methods=['POST', 'GET'], strict_slashes=False)

@@ -1,5 +1,14 @@
 {% extends 'admin/base/admin_base.html'%}
 {% block admin%}
+<style>
+        #username:focus:invalid + label[for="username"]:after {
+            content: "input must contain only letters and numbers";
+            color:red;
+        }
+</style>
+<script>
+    $('.settings-pane').addClass('active');
+</script>
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
@@ -13,19 +22,282 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Settings Page</h1>
-
+                    <h1 class="h5 mb-4 text-gray-800">Settings</h1>
+                    <div class="d-flex align-items-start w-100">
+                        <div class="nav flex-column bg-white p-3 nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        
+                            <button class="nav-link text-start text-nowrap active" id="v-pills-profile-tab" data-toggle="pill" data-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
+                            {% if current_user.pos == "superadmin" %}
+                            <button class="nav-link text-start text-nowrap" id="v-pills-home-tab" data-toggle="pill" data-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Add New User</button>
+                          {% endif %}
+                          <button class="nav-link text-start text-nowrap" id="v-pills-name-tab" data-toggle="pill" data-target="#v-pills-name" type="button" role="tab" aria-controls="v-pills-name" aria-selected="false">Change Name</button>
+                          <button class="nav-link text-start text-nowrap" id="v-pills-disabled-tab" data-toggle="pill" data-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Change Password</button>
+                          <button class="nav-link text-start text-nowrap" id="v-pills-messages-tab" data-toggle="pill" data-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Email</button>
+                          <button class="nav-link text-start text-nowrap" id="v-pills-username-tab" data-toggle="pill" data-target="#v-pills-username" type="button" role="tab" aria-controls="v-pills-username" aria-selected="false">Change Username</button>
+                          <button class="nav-link text-white bg-danger text-start text-nowrap" id="v-pills-settings-tab" data-toggle="pill" data-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Delete Account</button>
+                        </div>
+                        <div class="tab-content w-100  p-0" id="v-pills-tabContent">
+                        {% if current_user.pos == "superadmin" %}
+                          <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
+                            <div class="card">
+                            <div class="card-header">
+                                <h6 class="fw-bold">Add User</h6>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ url_for('register') }}" method="POST" id="register-user">
+                                    
+                                    <div class="row">
+                                    <div class="form-group mb-1 col-md">
+                                        <label for="name">Full Name</label>
+                                        <input class="form-control" id="name" required name="name" type="text">
+                                    </div>
+                                    <div class="form-group col-md mb-1">
+                                        <label for="job_title">Job Title</label>
+                                        <input class="form-control" id="job_title" required name="job_title" type="text">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md mb-1">
+                                        <label for="job_id">Job ID</label>
+                                        <input class="form-control" id="job_id" required name="job_id" type="number">
+                                    </div>
+                                    <div class="form-group col-md mb-1">
+                                        <label for="email">Work Email</label>
+                                        <input class="form-control" id="email" required name="email" type="email">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md mb-1">
+                                        <label for="phone">Phone Number</label>
+                                        <input class="form-control" id="phone" required name="phone" type="tel">
+                                    </div>
+                                    <div class="form-group col-md mb-1">
+                                        <label for="usertype">User Roles</label>
+                                        <select class="form-control form-select" id="usertype" name="usertype">
+                                            <option value="superadmin">Can add other users (Elevated)</option>
+                                            <option value="admin" selected>Just a normal user</option>
+                                        </select>
+                                    </div>
+                                
+                                </div>
+                                <div>
+                                    <p><i><strong>Note:</strong> The new user details are <strong>Username : </strong> ndc<< Job ID >> e.g if the Job ID is 12345 then the username is ndc12345 and the default Password is <strong>123456789</strong>.</i></p>
+                                </div>
+                                    <div class="form-group mt-3 w-100">
+                                        <button type="submit" form="register-user" class="btn btn-success float-end">Submit</button>
+                                    </div>
+                                    </form>	
+                            </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                          <div class="tab-pane fade" id="v-pills-name" role="tabpanel" aria-labelledby="v-pills-name-tab" tabindex="0">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="fw-bold">Change Your Name</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="fw-bold">Update your email address</h6>
+                                    <form id="change-name" action="{{ url_for('change_name') }}" method="post">
+                                        <div class="form-group mb-1">
+                                            <label for="first_name">First Name</label>
+                                            <input class="form-control" id="first_name" required name="first_name" type="text">
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <label for="last_name">Last Name</label>
+                                            <input class="form-control" id="last_name" required name="last_name" type="text">
+                                        </div>
+                                        <div>
+                                            <p><i><strong>Note:</strong> Changing your name will require you to logout of the system and login again to update any dynamic configurations.</i></p>
+                                        </div>
+                                        <div class="form-group mt-3 w-100">
+                                            <button type="submit" form="change-name" class="btn btn-success float-end">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="fw-bold">Your Profile</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>Email Address:</strong> {{current_user.email}}</p>
+                                    <p><strong>Name:</strong> {{current_user.name}}</p>
+                                    <p><strong>Phone:</strong> {{current_user.phone}}</p>
+                                    <p><strong>Job Title:</strong> {{current_user.job_title}}</p>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="fw-bold">Change Password</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="fw-bold">Update your Password</h6>
+                                    <form id="change-password" action="{{ url_for('change_password') }}" method="post">
+                                        <div class="form-group mb-1">
+                                            <label for="old-password">Your Old password</label>
+                                            <input class="form-control" id="old-password" required name="old_password" type="password">
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <label for="new_password">Your new password</label>
+                                            <input class="form-control" minlength="8" id="new_password" required name="new_password" type="password">
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <label for="conf_password">Confirm your new password <span id="pass-error" class="text-danger"></span></label>
+                                            <input class="form-control" minlength="8" id="conf_password" required name="conf_password" type="password">
+                                        </div>
+                                        <div class="form-group mt-3 w-100">
+                                            <button type="submit" disabled="true" id="password-submit" form="change-password" class="btn btn-success float-end">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="fw-bold">Change Email</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="fw-bold">Update your email address</h6>
+                                    <p>Your current email address is <strong>{{current_user.email}}</strong></p>
+                                    <form id="change-email" action="{{ url_for('change_email') }}" method="post">
+                                        <div class="form-group mb-1">
+                                            <label for="new_email">Your new email</label>
+                                            <input class="form-control" id="new_email" required name="new_email" type="email">
+                                        </div>
+                                        <div class="form-group mb-1">
+                                            <label for="conf_email">Confirm your new email <span id="mail-error" class="text-danger"></span></label>
+                                            <input class="form-control" id="conf_email" required name="conf_email" type="email">
+                                        </div>
+                                        <div>
+                                            <p><i><strong>Note:</strong> Changing your email address will require you to logout of the system and login again to update any dynamic configurations.</i></p>
+                                        </div>
+                                        <div class="form-group mt-3 w-100">
+                                            <button type="submit" disabled="true" id="email-submit" form="change-email" class="btn btn-success float-end">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="v-pills-username" role="tabpanel" aria-labelledby="v-pills-username-tab" tabindex="0">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="fw-bold">Change Username</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="fw-bold">Update your username</h6>
+                                    <form id="change-username" action="{{ url_for('change_username') }}" method="post">
+                                        <div class="form-group mb-1">
+                                            <label for="username">Your new username <span id="usercheck" class="text-danger"></span></label>
+                                            <input class="form-control" id="username" required name="username" pattern="\w+|d\+" type="name">
+                                        </div>
+                                        <div>
+                                            <p><i><strong>Note:</strong> Changing your username will require you to logout of the system and login again to update any dynamic configurations.</i></p>
+                                        </div>
+                                        <div class="form-group mt-3 w-100">
+                                            <button type="submit" disabled="true" form="change-username" id="change-u" class="btn btn-success float-end">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="fw-bold text-danger">Account deleting process</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-danger">To completely delete your account with email address: <strong>{{current_user.email}}</strong> provide your password</p>
+                                    <div>
+                                        <form id="delete-account" action="{{ url_for('delete_account') }}" method="post">
+                                            <div class="form-group mb-1">
+                                                <label for="del-password">Your Account Password</label>
+                                                <input class="form-control" id="del-password" required name="del_password" type="text">
+                                            </div>
+                                            <div class="form-group mb-1">
+                                                <label for="del-reason">Reason for Deleting Account(Optional)</label>
+                                                <textarea class="form-control" name="del_reason" rows="3"></textarea>
+                                            </div>
+                                            <div>
+                                                <p><i><strong>Note:</strong> This process once started is irreversible, kindly go ahead it with it is you are very sure.</i></p>
+                                            </div>
+                                            <div class="form-group mt-3 w-100">
+                                                <button type="submit" form="delete-account" class="btn btn-danger float-end">Delete account</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      <!-- </div> -->
                 </div>
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
-
+            </div>
             <!-- Footer -->
             {% include 'admin/base/footer_base.html' %}
             <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
+        <script>
+            $('#conf_email').on('input', function(){
+                if ($('#conf_email').val() != $('#new_email').val()) {
+                    $('#conf_email').addClass('border-danger');
+                    $('#mail-error').html('Emails do not match');
+                    $('#email-submit').prop('disabled', true);
+                }
+                else{
+                    $('#conf_email').removeClass('border-danger');
+                    $('#mail-error').html('');
+                    $('#email-submit').prop('disabled', false);
+                }
+            })
+            $('#conf_password').on('input', function(){
+                if ($('#conf_password').val() != $('#new_password').val()) {
+                    $('#conf_password').addClass('border-danger');
+                    $('#pass-error').html('Passwords do not match');
+                    $('#password-submit').prop('disabled', true);
+                }
+                else{
+                    $('#conf_password').removeClass('border-danger');
+                    $('#pass-error').html('');
+                    $('#password-submit').prop('disabled', false);
+                }
+            })
+            $("#username").keyup(function () {
+                validateUsername();
+            });
+         
+            function validateUsername() {
+                let usernameValue = $("#username").val();
+                if (usernameValue.length == "") {
+                    $("#usercheck").show();
+                    usernameError = false;
+                    $('#username').addClass('border-danger');
+                    $('#change-u').prop('disabled', true);
+                    return false;
+                } else if (usernameValue.length < 5 || usernameValue.length > 10) {
+                    $("#usercheck").show();
+                    $("#usercheck").html("**length of username must be between 5 and 10");
+                    $('#username').addClass('border-danger');
+                    $('#change-u').prop('disabled', true);
+                    usernameError = false;
+                    return false;
+                } else {
+                    $("#usercheck").hide();
+                    $('#username').removeClass('border-danger');
+                    $('#change-u').prop('disabled', false);
+                }
+            }
+        </script>
 
     {%endblock%}
