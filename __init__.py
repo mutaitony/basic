@@ -54,5 +54,8 @@ def error_handler(e):
     # return make_response(response, e.code)
     return make_response(render_template('admin/pages/404.html', code = e.code, name = e.name,description = e.description,))
 
-
+@app.teardown_request
+def teardown_request(exception):
+    if exception:
+        db.session.rollback()
 

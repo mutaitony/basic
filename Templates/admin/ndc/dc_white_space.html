@@ -39,14 +39,14 @@
                               <form id="containment_a">
                               <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md">
-                                  <div class="form-group">
-                                    <label for="containment_a_temparature">Temperature</label>
+                                  <div class="form-group temp_div">
+                                    <label for="containment_a_temparature">Temperature<span class="text-danger ms-1"></span></label>
                                     <input type="number" value="0" class="form-control all-inputs some_inputs" name="temperature" id="containment_a_temparature">
                                   </div>
                                 </div>
                                 <div class="col-xl-12 col-lg-12 col-md">
-                                  <div class="form-group">
-                                    <label for="containment_a_humidity">Humidity</label>
+                                  <div class="form-group hum_div">
+                                    <label for="containment_a_humidity">Humidity<span class="text-danger ms-1"></span></label>
                                     <input type="number" value="0" class="form-control all-inputs some_inputs" name="humidity" id="containment_a_humidity">
                                   </div>
                                 </div>
@@ -65,14 +65,14 @@
                                   <form id="containment_b">
                                   <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md">
-                                        <div class="form-group">
-                                          <label for="containment_b_temparature">Temperature</label>
+                                        <div class="form-group temp_div">
+                                          <label for="containment_b_temparature">Temperature<span class="text-danger ms-1"></span></label>
                                           <input type="number" value="0" class="form-control all-inputs some_inputs" name="temperature" id="containment_b_temparature">
                                         </div>
                                       </div>
                                       <div class="col-xl-12 col-lg-12 col-md">
-                                        <div class="form-group">
-                                          <label for="containment_b_humidity">Humidity</label>
+                                        <div class="form-group hum_div">
+                                          <label for="containment_b_humidity">Humidity<span class="text-danger ms-1"></span></label>
                                           <input type="number" value="0" class="form-control all-inputs some_inputs" name="humidity" id="containment_b_humidity">
                                         </div>
                                       </div>
@@ -148,6 +148,30 @@
         <!-- End of Content Wrapper -->
         <script>
             var all_data = {}
+            $('.temp_div input').on('input', function(){
+              $(this).parent().find('span').html()
+              if ($(this).val() < 18){
+                $(this).parent().find('span').html('The Temperature is too Low!')
+              }
+              else if ($(this).val() > 27){
+                $(this).parent().find('span').html('The Temperature is too High!')
+              }
+              else{
+                $(this).parent().find('span').html('<i class="bi bi-patch-check-fill text-success"></i>')
+              }
+            })
+            $('.hum_div input').on('input', function(){
+              $(this).parent().find('span').html()
+              if ($(this).val() < 40){
+                $(this).parent().find('span').html('The Humidity is too Low!')
+              }
+              else if ($(this).val() > 60){
+                $(this).parent().find('span').html('The Humidity is too High!')
+              }
+              else{
+                $(this).parent().find('span').html('<i class="bi bi-patch-check-fill text-success"></i>')
+              }
+            })
             $(function(){
               if ($.cookie("containment")){
                 all_data = JSON.parse($.cookie("containment"))

@@ -229,8 +229,7 @@
         <script>
           var all_data = {}
 
-          $('.fuel_level_div input').on('keyup', function(){
-            console.log($(this).val());
+          $('.fuel_level_div input').on('input', function(){
             $(this).parent().find('span').html()
             if ($(this).val() < 400){
               $(this).parent().find('span').html('Refueling needed!')

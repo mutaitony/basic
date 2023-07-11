@@ -169,18 +169,14 @@ def logs():
 def priview_logs():
     if request.method == 'POST':
         data = request.values
-        print(data)
         if data.get('logs_type') == 'power_rooms_logs':
             log_data = PowerRooms.query.filter_by(id = data.get('log_id')).first()
-            print(log_data)
             return make_response(jsonify(log_data.data))
         if data.get('logs_type') == 'generators_logs':
             log_data = Generators.query.filter_by(id = data.get('log_id')).first()
-            print(log_data)
             return make_response(jsonify(log_data.data))
         if data.get('logs_type') == 'white_spaces_logs':
             log_data = WhiteSpace.query.filter_by(id = data.get('log_id')).first()
-            print(log_data)
             return make_response(jsonify(log_data.data))
 
 @login_required
@@ -234,14 +230,18 @@ def generators():
 def urlf(urls):
     return render_template(f'admin/pages/{urls}.html')
 
-def make_pdf(data, date):
-    rendered_template = render_template('admin/ndc/generate_pdf-min.html', data = data,date = date.strftime('%c'))
+def make_pdf(data, date, name, email):
+    rendered_template = render_template('admin/ndc/generate_pdf-min.html', data = data,date = date.strftime('%c'), name = name, email = email)
     return rendered_template
 
 @login_required
 def download_comments(logs):
-    log = CommentsModel.query.filter_by(id = logs).first()
-    rendered_template = make_pdf(log.data, log.date)
+    log = db.session.query(CommentsModel.data, 
+                            CommentsModel.date,
+                            Users.name, Users.email)\
+                                .outerjoin(Users, Users.id == CommentsModel.user)\
+                                .filter(CommentsModel.id == logs).first()
+    rendered_template = make_pdf(log.data, log.date, log.name, log.email)
     return make_response(rendered_template)
     
 
@@ -249,7 +249,7 @@ def download_comments(logs):
 def generate_pdf():
     data = request.json
     date = datetime.now()
-    rendered_template = make_pdf(data, date)
+    rendered_template = make_pdf(data, date, current_user.name, current_user.email)
     new = CommentsModel(
             data = data,
             user = current_user.id,
